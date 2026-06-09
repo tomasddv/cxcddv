@@ -282,6 +282,7 @@ base["FechaCompromiso"] = pd.to_datetime(
 base["ProximoSeguimiento"] = pd.to_datetime(
     base["ProximoSeguimiento"],
     errors="coerce"
+)
 
     edited = st.data_editor(
         base[wanted],
