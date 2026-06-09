@@ -249,8 +249,10 @@ def plot_bar(df: pd.DataFrame, name_col: str, value_col: str, title: str, colors
 
 def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.DataFrame:
     base = top5.copy()
+
     if base.empty:
         base = plan_clientes.copy()
+
     wanted = [
         "Cliente",
         "Nombre",
@@ -266,38 +268,40 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
         "Estado",
         "ProximoSeguimiento",
     ]
+
     for col in wanted:
         if col not in base.columns:
             base[col] = ""
-if "EstadoSugerido" in base.columns:
-    base["Estado"] = base["Estado"].where(
-        base["Estado"].astype(str).str.len() > 0,
-        base["EstadoSugerido"]
+
+    if "EstadoSugerido" in base.columns:
+        base["Estado"] = base["Estado"].where(
+            base["Estado"].astype(str).str.len() > 0,
+            base["EstadoSugerido"]
+        )
+
+    if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
+        base["Responsable"] = "JDV / SPV"
+
+    edited = st.data_editor(
+        base[wanted],
+        use_container_width=True,
+        height=430,
+        num_rows="dynamic",
+        column_config={
+            "AccionSugerida": st.column_config.TextColumn("Acción sugerida", width="large"),
+            "AccionRealizada": st.column_config.TextColumn("Acción realizada", width="large"),
+            "ComentarioSeguimiento": st.column_config.TextColumn("Comentario seguimiento", width="large"),
+            "Estado": st.column_config.SelectboxColumn(
+                "Estado",
+                options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]
+            ),
+            "FechaCompromiso": st.column_config.TextColumn("Fecha compromiso"),
+            "ProximoSeguimiento": st.column_config.TextColumn("Próximo seguimiento"),
+        },
+        key="planes_accion",
     )
 
-if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
-    base["Responsable"] = "JDV / SPV"
-
-edited = st.data_editor(
-    base[wanted],
-    use_container_width=True,
-    height=430,
-    num_rows="dynamic",
-    column_config={
-        "AccionSugerida": st.column_config.TextColumn("Acción sugerida", width="large"),
-        "AccionRealizada": st.column_config.TextColumn("Acción realizada", width="large"),
-        "ComentarioSeguimiento": st.column_config.TextColumn("Comentario seguimiento", width="large"),
-        "Estado": st.column_config.SelectboxColumn(
-            "Estado",
-            options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]
-        ),
-        "FechaCompromiso": st.column_config.TextColumn("Fecha compromiso"),
-        "ProximoSeguimiento": st.column_config.TextColumn("Próximo seguimiento"),
-    },
-    key="planes_accion",
-)
-
-return edited
+    return edited
 
 def main() -> None:
     inject_style()
