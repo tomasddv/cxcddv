@@ -269,37 +269,35 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
     for col in wanted:
         if col not in base.columns:
             base[col] = ""
-    if "EstadoSugerido" in base.columns:
-        base["Estado"] = base["Estado"].where(base["Estado"].astype(str).str.len() > 0, base["EstadoSugerido"])
-    if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
-        base["Responsable"] = "JDV / SPV"
-         #Convertir fechas
-base["FechaCompromiso"] = pd.to_datetime(
-    base["FechaCompromiso"],
-    errors="coerce"
-)
-
-base["ProximoSeguimiento"] = pd.to_datetime(
-    base["ProximoSeguimiento"],
-    errors="coerce"
-)
-  edited = st.data_editor(
-        base[wanted],
-        use_container_width=True,
-        height=430,
-        num_rows="dynamic",
-        column_config={
-            "AccionSugerida": st.column_config.TextColumn("Accion sugerida", width="large"),
-            "AccionRealizada": st.column_config.TextColumn("Accion realizada", width="large"),
-            "ComentarioSeguimiento": st.column_config.TextColumn("Comentario seguimiento", width="large"),
-            "Estado": st.column_config.SelectboxColumn("Estado", options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]),
-            "FechaCompromiso": st.column_config.DateColumn("Fecha compromiso"),
-            "ProximoSeguimiento": st.column_config.DateColumn("Proximo seguimiento"),
-        },
-        key="planes_accion",
+if "EstadoSugerido" in base.columns:
+    base["Estado"] = base["Estado"].where(
+        base["Estado"].astype(str).str.len() > 0,
+        base["EstadoSugerido"]
     )
-    return edited
 
+if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
+    base["Responsable"] = "JDV / SPV"
+
+edited = st.data_editor(
+    base[wanted],
+    use_container_width=True,
+    height=430,
+    num_rows="dynamic",
+    column_config={
+        "AccionSugerida": st.column_config.TextColumn("Acción sugerida", width="large"),
+        "AccionRealizada": st.column_config.TextColumn("Acción realizada", width="large"),
+        "ComentarioSeguimiento": st.column_config.TextColumn("Comentario seguimiento", width="large"),
+        "Estado": st.column_config.SelectboxColumn(
+            "Estado",
+            options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]
+        ),
+        "FechaCompromiso": st.column_config.TextColumn("Fecha compromiso"),
+        "ProximoSeguimiento": st.column_config.TextColumn("Próximo seguimiento"),
+    },
+    key="planes_accion",
+)
+
+return edited
 
 def main() -> None:
     inject_style()
