@@ -42,13 +42,12 @@ def inject_style() -> None:
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         html, body, [class*="css"] { font-family: Inter, Segoe UI, sans-serif; }
         .stApp {
-          background:
-            radial-gradient(circle at 8% 8%, rgba(124,58,237,.20), transparent 28%),
-            radial-gradient(circle at 88% 4%, rgba(6,182,212,.18), transparent 30%),
-            radial-gradient(circle at 55% 92%, rgba(236,72,153,.14), transparent 24%),
-            linear-gradient(135deg, #f8fbff 0%, #f7f3ff 46%, #f7fffb 100%);
-          color: #172033;
-        }
+  background:
+    radial-gradient(circle at 8% 8%, rgba(124,58,237,.18), transparent 28%),
+    radial-gradient(circle at 88% 4%, rgba(6,182,212,.14), transparent 30%),
+    linear-gradient(135deg, #020617 0%, #0f172a 46%, #111827 100%);
+  color: #f8fafc;
+}
         .hero {
           padding: 22px 26px;
           border: 1px solid rgba(255,255,255,.68);
