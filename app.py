@@ -283,8 +283,7 @@ base["ProximoSeguimiento"] = pd.to_datetime(
     base["ProximoSeguimiento"],
     errors="coerce"
 )
-
-    edited = st.data_editor(
+  edited = st.data_editor(
         base[wanted],
         use_container_width=True,
         height=430,
