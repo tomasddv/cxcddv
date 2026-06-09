@@ -273,6 +273,15 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
         base["Estado"] = base["Estado"].where(base["Estado"].astype(str).str.len() > 0, base["EstadoSugerido"])
     if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
         base["Responsable"] = "JDV / SPV"
+         #Convertir fechas
+base["FechaCompromiso"] = pd.to_datetime(
+    base["FechaCompromiso"],
+    errors="coerce"
+)
+
+base["ProximoSeguimiento"] = pd.to_datetime(
+    base["ProximoSeguimiento"],
+    errors="coerce"
 
     edited = st.data_editor(
         base[wanted],
