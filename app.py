@@ -226,24 +226,6 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
         textposition="outside",
     ))
 
-    fig.add_trace(go.Scatter(
-        x=monthly["Mes"],
-        y=monthly["ON TIME %"],
-        name="ON TIME",
-        mode="lines+markers",
-        line=dict(color="#8B5CF6", width=4),
-        marker=dict(size=9),
-    ))
-
-    fig.add_trace(go.Scatter(
-        x=monthly["Mes"],
-        y=monthly["Adopcion CXC %"],
-        name="Adopción CXC",
-        mode="lines+markers",
-        line=dict(color="#22C55E", width=4),
-        marker=dict(size=9),
-    ))
-
     fig.update_layout(
         template="plotly_dark",
         height=430,
