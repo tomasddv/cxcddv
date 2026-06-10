@@ -215,20 +215,70 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
     monthly["Adopcion CXC %"] = monthly["AdopcionPct"] * 100
 
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=monthly["Mes"], y=monthly["Total"], name="Tickets", marker_color=COLORS["cyan"], yaxis="y2"))
-    fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["ON TIME %"], name="ON TIME", mode="lines+markers", line=dict(color=COLORS["violet"], width=4)))
-    fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["Adopcion CXC %"], name="Adopcion CXC", mode="lines+markers", line=dict(color=COLORS["green"], width=4)))
-    fig.update_layout(
-        height=390,
-        margin=dict(l=10, r=10, t=30, b=10),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,255,255,.35)",
-        legend=dict(orientation="h", y=1.10),
-        yaxis=dict(title="Porcentaje", ticksuffix="%"),
-        yaxis2=dict(title="Tickets", overlaying="y", side="right", showgrid=False),
-    )
-    st.plotly_chart(fig, use_container_width=True)
 
+    fig.add_trace(go.Bar(
+        x=monthly["Mes"],
+        y=monthly["Total"],
+        name="Tickets",
+        marker_color="#38BDF8",
+        yaxis="y2",
+        text=monthly["Total"],
+        textposition="outside",
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=monthly["Mes"],
+        y=monthly["ON TIME %"],
+        name="ON TIME",
+        mode="lines+markers",
+        line=dict(color="#8B5CF6", width=4),
+        marker=dict(size=9),
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=monthly["Mes"],
+        y=monthly["Adopcion CXC %"],
+        name="Adopción CXC",
+        mode="lines+markers",
+        line=dict(color="#22C55E", width=4),
+        marker=dict(size=9),
+    ))
+
+    fig.update_layout(
+        template="plotly_dark",
+        height=430,
+        margin=dict(l=45, r=50, t=55, b=35),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(15,23,42,.65)",
+        font=dict(color="#F8FAFC", size=13),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.03,
+            xanchor="left",
+            x=0,
+            font=dict(size=12, color="#E2E8F0")
+        ),
+        yaxis=dict(
+            title="Porcentaje",
+            ticksuffix="%",
+            gridcolor="rgba(148,163,184,.18)",
+            zeroline=False,
+        ),
+        yaxis2=dict(
+            title="Tickets",
+            overlaying="y",
+            side="right",
+            showgrid=False,
+            zeroline=False,
+        ),
+        xaxis=dict(
+            gridcolor="rgba(148,163,184,.10)",
+            zeroline=False,
+        ),
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 
 def plot_bar(df: pd.DataFrame, name_col: str, value_col: str, title: str, colors: list[str]) -> None:
     if df.empty:
