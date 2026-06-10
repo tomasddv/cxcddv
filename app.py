@@ -234,15 +234,45 @@ def plot_bar(df: pd.DataFrame, name_col: str, value_col: str, title: str, colors
     if df.empty:
         st.info("Sin datos para mostrar con los filtros actuales.")
         return
-    fig = px.bar(df, x=value_col, y=name_col, orientation="h", title=title, color=name_col, color_discrete_sequence=colors)
-    fig.update_layout(
-        height=390,
-        margin=dict(l=10, r=10, t=45, b=10),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,255,255,.35)",
-        showlegend=False,
-        yaxis=dict(autorange="reversed"),
+
+    fig = px.bar(
+        df,
+        x=value_col,
+        y=name_col,
+        orientation="h",
+        title=title,
+        color=value_col,
+        color_continuous_scale=["#38BDF8", "#8B5CF6", "#EC4899"],
+        template="plotly_dark",
+        text=value_col,
     )
+
+    fig.update_traces(
+        marker_line_width=0,
+        texttemplate="%{text:,.0f}",
+        textposition="outside",
+        cliponaxis=False,
+    )
+
+    fig.update_layout(
+        height=420,
+        margin=dict(l=20, r=45, t=55, b=25),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(15,23,42,.65)",
+        font=dict(color="#F8FAFC", size=13),
+        title=dict(font=dict(size=18, color="#F8FAFC")),
+        showlegend=False,
+        coloraxis_showscale=False,
+        xaxis=dict(
+            gridcolor="rgba(148,163,184,.18)",
+            zeroline=False,
+        ),
+        yaxis=dict(
+            autorange="reversed",
+            gridcolor="rgba(148,163,184,.10)",
+        ),
+    )
+
     st.plotly_chart(fig, use_container_width=True)
 
 
