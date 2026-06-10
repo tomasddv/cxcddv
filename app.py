@@ -227,7 +227,7 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
     ))
 
     fig.update_layout(
-        template="plotly_dark",
+        template="plotly_green",
         height=430,
         margin=dict(l=45, r=50, t=55, b=35),
         paper_bgcolor="rgba(0,0,0,0)",
