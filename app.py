@@ -171,8 +171,8 @@ def load_remote_data(source_url: str) -> dict:
     return json.loads(payload)
 
 
-@st.cache_data(show_spinner=False)
-def load_local_data() -> dict:
+@st.cache_data(show_spinner=False, ttl=60)
+def load_local_data(file_mtime: float) -> dict:
     with DATA_PATH.open("r", encoding="utf-8") as fh:
         return json.load(fh)
 
@@ -184,7 +184,7 @@ def load_data() -> tuple[dict, str]:
             return load_remote_data(source_url), "Google Drive"
         except Exception as exc:
             st.warning(f"No pude leer DATA_URL desde Drive. Uso la copia local. Detalle: {exc}")
-    return load_local_data(), "Archivo local"
+    return load_local_data(DATA_PATH.stat().st_mtime), "Archivo local GitHub"
 
 
 def as_df(data: dict, key: str) -> pd.DataFrame:
@@ -227,7 +227,7 @@ def filter_tickets(tickets: pd.DataFrame, source_label: str) -> pd.DataFrame:
     with st.sidebar:
         st.markdown("### Datos")
         st.caption(f"Fuente actual: {source_label}")
-        if st.button("Actualizar datos desde Drive", use_container_width=True):
+        if st.button("Actualizar / limpiar cache", use_container_width=True):
             st.cache_data.clear()
             st.rerun()
         st.divider()
