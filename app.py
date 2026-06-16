@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
+import re
+import urllib.request
 from pathlib import Path
 
 import pandas as pd
@@ -13,6 +16,7 @@ APP_DIR = Path(__file__).parent
 DATA_PATH = APP_DIR / "data" / "dashboard-data.json"
 XLSX_PATH = APP_DIR / "data" / "CXC_BEESCARE_DelValle_analisis.xlsx"
 PPTX_PATH = APP_DIR / "data" / "Capacitacion_JDV_SPV_CXC_BEESCARE_GALAXIA_DelValle.pptx"
+DEFAULT_CACHE_SECONDS = 300
 
 COLORS = {
     "violet": "#7c3aed",
@@ -136,10 +140,51 @@ def inject_style() -> None:
     )
 
 
+def secret_or_env(name: str, default: str = "") -> str:
+    try:
+        value = st.secrets.get(name, "")
+    except Exception:
+        value = ""
+    return str(value or os.environ.get(name, default) or "").strip()
+
+
+def normalize_drive_url(url: str) -> str:
+    url = (url or "").strip()
+    if not url:
+        return ""
+    if "drive.google.com/drive/folders/" in url:
+        raise ValueError("DATA_URL debe ser el link del archivo dashboard-data.json, no el link de la carpeta de Drive.")
+    match = re.search(r"/d/([A-Za-z0-9_-]+)", url) or re.search(r"[?&]id=([A-Za-z0-9_-]+)", url)
+    if "drive.google.com" in url and match:
+        return f"https://drive.google.com/uc?export=download&id={match.group(1)}"
+    return url
+
+
+@st.cache_data(show_spinner=False, ttl=DEFAULT_CACHE_SECONDS)
+def load_remote_data(source_url: str) -> dict:
+    request = urllib.request.Request(
+        normalize_drive_url(source_url),
+        headers={"User-Agent": "Mozilla/5.0 Streamlit CXC"},
+    )
+    with urllib.request.urlopen(request, timeout=25) as response:
+        payload = response.read().decode("utf-8-sig")
+    return json.loads(payload)
+
+
 @st.cache_data(show_spinner=False)
-def load_data() -> dict:
+def load_local_data() -> dict:
     with DATA_PATH.open("r", encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def load_data() -> tuple[dict, str]:
+    source_url = secret_or_env("DATA_URL")
+    if source_url:
+        try:
+            return load_remote_data(source_url), "Google Drive"
+        except Exception as exc:
+            st.warning(f"No pude leer DATA_URL desde Drive. Uso la copia local. Detalle: {exc}")
+    return load_local_data(), "Archivo local"
 
 
 def as_df(data: dict, key: str) -> pd.DataFrame:
@@ -178,8 +223,14 @@ def make_kpi(label: str, value: str, note: str = "", color: str = "#7c3aed") -> 
     )
 
 
-def filter_tickets(tickets: pd.DataFrame) -> pd.DataFrame:
+def filter_tickets(tickets: pd.DataFrame, source_label: str) -> pd.DataFrame:
     with st.sidebar:
+        st.markdown("### Datos")
+        st.caption(f"Fuente actual: {source_label}")
+        if st.button("Actualizar datos desde Drive", use_container_width=True):
+            st.cache_data.clear()
+            st.rerun()
+        st.divider()
         st.markdown("### Filtros")
         months = ["Todos"] + sorted(tickets["Mes"].dropna().unique().tolist())
         selected_month = st.selectbox("Mes", months)
@@ -293,7 +344,7 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
 
 def main() -> None:
     inject_style()
-    data = load_data()
+    data, source_label = load_data()
 
     tickets = as_df(data, "tickets")
     monthly = as_df(data, "monthly")
@@ -304,7 +355,7 @@ def main() -> None:
     riesgo = as_df(data, "riesgoTickets")
 
     tickets["EstadoOperativo"] = tickets.apply(status_for, axis=1)
-    filtered = filter_tickets(tickets)
+    filtered = filter_tickets(tickets, source_label)
 
     st.markdown(
         f"""

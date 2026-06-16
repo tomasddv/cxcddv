@@ -48,7 +48,32 @@ app.py
 
 4. Deploy.
 
-## Actualizar datos
+## Conectar actualizacion desde Google Drive
+
+La app puede leer los datos desde Google Drive, pero necesita el link directo al archivo `dashboard-data.json`.
+
+Importante: no sirve el link de la carpeta de Drive. Streamlit no puede saber que archivo de la carpeta debe usar.
+
+Pasos:
+
+1. En Google Drive, abrir la carpeta donde esta la base.
+2. Buscar el archivo `dashboard-data.json`.
+3. Clic derecho sobre ese archivo.
+4. Elegir `Compartir`.
+5. Cambiar acceso a `Cualquier persona con el enlace`.
+6. Copiar el enlace del archivo.
+7. En Streamlit Cloud ir a `App -> Settings -> Secrets`.
+8. Pegar:
+
+```toml
+DATA_URL = "PEGAR_AQUI_EL_LINK_DEL_ARCHIVO_dashboard-data.json"
+```
+
+9. Guardar y tocar `Rerun`.
+
+La app guarda cache por pocos minutos. Si queres forzar la lectura nueva, usa el boton `Actualizar datos desde Drive` en el panel lateral.
+
+## Actualizar datos sin Drive
 
 Cuando se regenere la informacion CXC:
 
