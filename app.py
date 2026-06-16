@@ -50,7 +50,7 @@ def inject_style() -> None:
             radial-gradient(circle at 8% 8%, rgba(124,58,237,.20), transparent 28%),
             radial-gradient(circle at 88% 4%, rgba(6,182,212,.18), transparent 30%),
             radial-gradient(circle at 55% 92%, rgba(236,72,153,.14), transparent 24%),
-            linear-gradient(135deg, #f8fbff 0%, #f7f3ff 46%, #f7fffb 100%);
+           linear-gradient(135deg, #050816 0%, #111827 50%, #0f172a 100%);
           color: #172033;
         }
         .hero {
