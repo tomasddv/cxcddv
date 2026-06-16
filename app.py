@@ -50,7 +50,7 @@ def inject_style() -> None:
             radial-gradient(circle at 8% 8%, rgba(124,58,237,.20), transparent 28%),
             radial-gradient(circle at 88% 4%, rgba(6,182,212,.18), transparent 30%),
             radial-gradient(circle at 55% 92%, rgba(236,72,153,.14), transparent 24%),
-           linear-gradient(135deg, #050816 0%, #111827 50%, #0f172a 100%);
+            linear-gradient(135deg, #f8fbff 0%, #f7f3ff 46%, #f7fffb 100%);
           color: #172033;
         }
         .hero {
@@ -264,12 +264,10 @@ def filter_tickets(tickets: pd.DataFrame, source_label: str) -> pd.DataFrame:
 def plot_monthly(monthly: pd.DataFrame) -> None:
     monthly = monthly.copy()
     monthly["ON TIME %"] = monthly["OnTime"] * 100
-    monthly["Adopcion CXC %"] = monthly["AdopcionPct"] * 100
 
     fig = go.Figure()
     fig.add_trace(go.Bar(x=monthly["Mes"], y=monthly["Total"], name="Tickets", marker_color=COLORS["cyan"], opacity=.45))
     fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["ON TIME %"], name="ON TIME", mode="lines+markers", line=dict(color=COLORS["violet"], width=4)))
-    fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["Adopcion CXC %"], name="Adopcion CXC", mode="lines+markers", line=dict(color=COLORS["green"], width=4)))
     fig.update_layout(
         height=390,
         margin=dict(l=10, r=10, t=30, b=10),
@@ -277,6 +275,41 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
         plot_bgcolor="rgba(255,255,255,.35)",
         legend=dict(orientation="h", y=1.10),
         yaxis=dict(title_text="Tickets / porcentaje"),
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def plot_adoption(monthly: pd.DataFrame) -> None:
+    monthly = monthly.copy()
+    monthly["Adopcion CXC %"] = monthly["AdopcionPct"] * 100
+    fig = go.Figure()
+    fig.add_trace(
+        go.Bar(
+            x=monthly["Mes"],
+            y=monthly["ClientesContactoCXC"],
+            name="Clientes con contacto CXC",
+            marker_color=COLORS["cyan"],
+            opacity=.42,
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=monthly["Mes"],
+            y=monthly["Adopcion CXC %"],
+            name="Adopcion CXC %",
+            mode="lines+markers+text",
+            text=[pct(v, 2) for v in monthly["Adopcion CXC %"]],
+            textposition="top center",
+            line=dict(color=COLORS["green"], width=4),
+        )
+    )
+    fig.update_layout(
+        height=330,
+        margin=dict(l=10, r=10, t=30, b=10),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(255,255,255,.35)",
+        legend=dict(orientation="h", y=1.12),
+        yaxis=dict(title_text="Clientes / porcentaje"),
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -372,19 +405,24 @@ def main() -> None:
     closed = filtered[filtered["Cerrado"] == True]
     inside = closed[closed["DentroSLA"] == True]
     on_time_filtered = (len(inside) / len(closed) * 100) if len(closed) else 0
+    adoption_denominator = int(kpis.get("denominadorAdopcion", 0) or 0)
+    adoption_clients = filtered["ClienteId"].astype(str).str[-6:].str.lstrip("0").replace("", pd.NA).dropna().nunique()
+    adoption_filtered = (adoption_clients / adoption_denominator * 100) if adoption_denominator else 0
 
-    cols = st.columns(6)
+    cols = st.columns(7)
     with cols[0]:
         make_kpi("Tickets filtrados", f"{len(filtered):,}".replace(",", "."), f"Total base: {kpis.get('totalTickets', 0)}", COLORS["cyan"])
     with cols[1]:
         make_kpi("ON TIME", pct(on_time_filtered), f"Acumulado: {pct(kpis.get('onTimeAcumulado', 0))}", COLORS["green"])
     with cols[2]:
-        make_kpi("Dentro SLA", str(int(filtered["DentroSLA"].sum())), "Cerrados dentro SLA", COLORS["lime"])
+        make_kpi("Adopcion CXC", pct(adoption_filtered, 2), f"{adoption_clients} / {adoption_denominator} clientes", COLORS["magenta"])
     with cols[3]:
-        make_kpi("Fuera SLA", str(int(filtered["FueraSLA"].sum())), "Prioridad media", COLORS["red"])
+        make_kpi("Dentro SLA", str(int(filtered["DentroSLA"].sum())), "Cerrados dentro SLA", COLORS["lime"])
     with cols[4]:
-        make_kpi("Pendientes", str(int(filtered["Pendiente"].sum())), "Dentro o vencidos", COLORS["yellow"])
+        make_kpi("Fuera SLA", str(int(filtered["FueraSLA"].sum())), "Prioridad media", COLORS["red"])
     with cols[5]:
+        make_kpi("Pendientes", str(int(filtered["Pendiente"].sum())), "Dentro o vencidos", COLORS["yellow"])
+    with cols[6]:
         make_kpi("+10 dias", str(int(filtered["RiesgoMasivo"].sum())), "Riesgo cierre masivo", COLORS["orange"])
 
     tab_resumen, tab_tickets, tab_criticos, tab_planes, tab_auditoria, tab_descargas = st.tabs(
@@ -405,6 +443,19 @@ def main() -> None:
             fig.update_layout(height=390, margin=dict(l=8, r=8, t=20, b=8), paper_bgcolor="rgba(0,0,0,0)")
             st.plotly_chart(fig, use_container_width=True)
             st.markdown("</div>", unsafe_allow_html=True)
+
+        st.markdown('<div class="soft-panel"><div class="section-title">Adopcion CXC mensual</div>', unsafe_allow_html=True)
+        plot_adoption(monthly)
+        adoption_table = monthly[["Mes", "ClientesContactoCXC", "DenominadorAdopcion", "AdopcionPct"]].copy()
+        adoption_table["Adopcion CXC %"] = (adoption_table["AdopcionPct"] * 100).map(lambda value: pct(value, 2))
+        adoption_table = adoption_table.rename(
+            columns={
+                "ClientesContactoCXC": "Clientes con contacto CXC",
+                "DenominadorAdopcion": "Cartera clientes",
+            }
+        )[["Mes", "Clientes con contacto CXC", "Cartera clientes", "Adopcion CXC %"]]
+        st.dataframe(adoption_table, use_container_width=True, hide_index=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
         c3, c4 = st.columns(2)
         with c3:
