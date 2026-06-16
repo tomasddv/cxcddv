@@ -42,12 +42,13 @@ def inject_style() -> None:
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         html, body, [class*="css"] { font-family: Inter, Segoe UI, sans-serif; }
         .stApp {
-  background:
-    radial-gradient(circle at 8% 8%, rgba(124,58,237,.18), transparent 28%),
-    radial-gradient(circle at 88% 4%, rgba(6,182,212,.14), transparent 30%),
-    linear-gradient(135deg, #020617 0%, #0f172a 46%, #111827 100%);
-  color: #f8fafc;
-}
+          background:
+            radial-gradient(circle at 8% 8%, rgba(124,58,237,.20), transparent 28%),
+            radial-gradient(circle at 88% 4%, rgba(6,182,212,.18), transparent 30%),
+            radial-gradient(circle at 55% 92%, rgba(236,72,153,.14), transparent 24%),
+            linear-gradient(135deg, #f8fbff 0%, #f7f3ff 46%, #f7fffb 100%);
+          color: #172033;
+        }
         .hero {
           padding: 22px 26px;
           border: 1px solid rgba(255,255,255,.68);
@@ -215,105 +216,41 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
     monthly["Adopcion CXC %"] = monthly["AdopcionPct"] * 100
 
     fig = go.Figure()
-
-    fig.add_trace(go.Bar(
-        x=monthly["Mes"],
-        y=monthly["Total"],
-        name="Tickets",
-        marker_color="#38BDF8",
-        yaxis="y2",
-        text=monthly["Total"],
-        textposition="outside",
-    ))
-
+    fig.add_trace(go.Bar(x=monthly["Mes"], y=monthly["Total"], name="Tickets", marker_color=COLORS["cyan"], yaxis="y2"))
+    fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["ON TIME %"], name="ON TIME", mode="lines+markers", line=dict(color=COLORS["violet"], width=4)))
+    fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["Adopcion CXC %"], name="Adopcion CXC", mode="lines+markers", line=dict(color=COLORS["green"], width=4)))
     fig.update_layout(
-        template="plotly_green",
-        height=430,
-        margin=dict(l=45, r=50, t=55, b=35),
+        height=390,
+        margin=dict(l=10, r=10, t=30, b=10),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(15,23,42,.65)",
-        font=dict(color="#F8FAFC", size=13),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.03,
-            xanchor="left",
-            x=0,
-            font=dict(size=12, color="#E2E8F0")
-        ),
-        yaxis=dict(
-            title="Porcentaje",
-            ticksuffix="%",
-            gridcolor="rgba(148,163,184,.18)",
-            zeroline=False,
-        ),
-        yaxis2=dict(
-            title="Tickets",
-            overlaying="y",
-            side="right",
-            showgrid=False,
-            zeroline=False,
-        ),
-        xaxis=dict(
-            gridcolor="rgba(148,163,184,.10)",
-            zeroline=False,
-        ),
+        plot_bgcolor="rgba(255,255,255,.35)",
+        legend=dict(orientation="h", y=1.10),
+        yaxis=dict(title_text="Porcentaje", ticksuffix="%"),
+        yaxis2=dict(title_text="Tickets", overlaying="y", side="right", showgrid=False),
     )
-
     st.plotly_chart(fig, use_container_width=True)
+
 
 def plot_bar(df: pd.DataFrame, name_col: str, value_col: str, title: str, colors: list[str]) -> None:
     if df.empty:
         st.info("Sin datos para mostrar con los filtros actuales.")
         return
-
-    fig = px.bar(
-        df,
-        x=value_col,
-        y=name_col,
-        orientation="h",
-        title=title,
-        color=value_col,
-        color_continuous_scale=["#38BDF8", "#8B5CF6", "#EC4899"],
-        template="plotly_dark",
-        text=value_col,
-    )
-
-    fig.update_traces(
-        marker_line_width=0,
-        texttemplate="%{text:,.0f}",
-        textposition="outside",
-        cliponaxis=False,
-    )
-
+    fig = px.bar(df, x=value_col, y=name_col, orientation="h", title=title, color=name_col, color_discrete_sequence=colors)
     fig.update_layout(
-        height=420,
-        margin=dict(l=20, r=45, t=55, b=25),
+        height=390,
+        margin=dict(l=10, r=10, t=45, b=10),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(15,23,42,.65)",
-        font=dict(color="#F8FAFC", size=13),
-        title=dict(font=dict(size=18, color="#F8FAFC")),
+        plot_bgcolor="rgba(255,255,255,.35)",
         showlegend=False,
-        coloraxis_showscale=False,
-        xaxis=dict(
-            gridcolor="rgba(148,163,184,.18)",
-            zeroline=False,
-        ),
-        yaxis=dict(
-            autorange="reversed",
-            gridcolor="rgba(148,163,184,.10)",
-        ),
+        yaxis=dict(autorange="reversed"),
     )
-
     st.plotly_chart(fig, use_container_width=True)
 
 
 def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.DataFrame:
     base = top5.copy()
-
     if base.empty:
         base = plan_clientes.copy()
-
     wanted = [
         "Cliente",
         "Nombre",
@@ -329,17 +266,11 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
         "Estado",
         "ProximoSeguimiento",
     ]
-
     for col in wanted:
         if col not in base.columns:
             base[col] = ""
-
     if "EstadoSugerido" in base.columns:
-        base["Estado"] = base["Estado"].where(
-            base["Estado"].astype(str).str.len() > 0,
-            base["EstadoSugerido"]
-        )
-
+        base["Estado"] = base["Estado"].where(base["Estado"].astype(str).str.len() > 0, base["EstadoSugerido"])
     if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
         base["Responsable"] = "JDV / SPV"
 
@@ -349,20 +280,17 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
         height=430,
         num_rows="dynamic",
         column_config={
-            "AccionSugerida": st.column_config.TextColumn("Acción sugerida", width="large"),
-            "AccionRealizada": st.column_config.TextColumn("Acción realizada", width="large"),
+            "AccionSugerida": st.column_config.TextColumn("Accion sugerida", width="large"),
+            "AccionRealizada": st.column_config.TextColumn("Accion realizada", width="large"),
             "ComentarioSeguimiento": st.column_config.TextColumn("Comentario seguimiento", width="large"),
-            "Estado": st.column_config.SelectboxColumn(
-                "Estado",
-                options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]
-            ),
-            "FechaCompromiso": st.column_config.TextColumn("Fecha compromiso"),
-            "ProximoSeguimiento": st.column_config.TextColumn("Próximo seguimiento"),
+            "Estado": st.column_config.SelectboxColumn("Estado", options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]),
+            "FechaCompromiso": st.column_config.DateColumn("Fecha compromiso"),
+            "ProximoSeguimiento": st.column_config.DateColumn("Proximo seguimiento"),
         },
         key="planes_accion",
     )
-
     return edited
+
 
 def main() -> None:
     inject_style()
