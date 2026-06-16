@@ -216,7 +216,7 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
     monthly["Adopcion CXC %"] = monthly["AdopcionPct"] * 100
 
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=monthly["Mes"], y=monthly["Total"], name="Tickets", marker_color=COLORS["cyan"], yaxis="y2"))
+    fig.add_trace(go.Bar(x=monthly["Mes"], y=monthly["Total"], name="Tickets", marker_color=COLORS["cyan"], opacity=.45))
     fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["ON TIME %"], name="ON TIME", mode="lines+markers", line=dict(color=COLORS["violet"], width=4)))
     fig.add_trace(go.Scatter(x=monthly["Mes"], y=monthly["Adopcion CXC %"], name="Adopcion CXC", mode="lines+markers", line=dict(color=COLORS["green"], width=4)))
     fig.update_layout(
@@ -225,8 +225,7 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(255,255,255,.35)",
         legend=dict(orientation="h", y=1.10),
-        yaxis=dict(title_text="Porcentaje", ticksuffix="%"),
-        yaxis2=dict(title_text="Tickets", overlaying="y", side="right", showgrid=False),
+        yaxis=dict(title_text="Tickets / porcentaje"),
     )
     st.plotly_chart(fig, use_container_width=True)
 
