@@ -50,7 +50,7 @@ def inject_style() -> None:
             radial-gradient(circle at 8% 8%, rgba(124,58,237,.20), transparent 28%),
             radial-gradient(circle at 88% 4%, rgba(6,182,212,.18), transparent 30%),
             radial-gradient(circle at 55% 92%, rgba(236,72,153,.14), transparent 24%),
-           linear-gradient(135deg, #050816 0%, #111827 50%, #0f172a 100%);
+            linear-gradient(135deg, #f8fbff 0%, #f7f3ff 46%, #f7fffb 100%);
           color: #172033;
         }
         .hero {
@@ -356,6 +356,22 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
         base["Estado"] = base["Estado"].where(base["Estado"].astype(str).str.len() > 0, base["EstadoSugerido"])
     if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
         base["Responsable"] = "JDV / SPV"
+    for text_col in [
+        "Cliente",
+        "Nombre",
+        "Mes",
+        "Motivo",
+        "Submotivo",
+        "Prioridad",
+        "AccionSugerida",
+        "Responsable",
+        "AccionRealizada",
+        "ComentarioSeguimiento",
+        "Estado",
+        "FechaCompromiso",
+        "ProximoSeguimiento",
+    ]:
+        base[text_col] = base[text_col].fillna("").astype(str)
 
     edited = st.data_editor(
         base[wanted],
@@ -367,8 +383,8 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
             "AccionRealizada": st.column_config.TextColumn("Accion realizada", width="large"),
             "ComentarioSeguimiento": st.column_config.TextColumn("Comentario seguimiento", width="large"),
             "Estado": st.column_config.SelectboxColumn("Estado", options=["Pendiente", "En curso", "Cerrado", "Requiere seguimiento"]),
-            "FechaCompromiso": st.column_config.DateColumn("Fecha compromiso"),
-            "ProximoSeguimiento": st.column_config.DateColumn("Proximo seguimiento"),
+            "FechaCompromiso": st.column_config.TextColumn("Fecha compromiso", help="Formato sugerido: YYYY-MM-DD"),
+            "ProximoSeguimiento": st.column_config.TextColumn("Proximo seguimiento", help="Formato sugerido: YYYY-MM-DD"),
         },
         key="planes_accion",
     )
