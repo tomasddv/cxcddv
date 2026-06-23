@@ -47,59 +47,73 @@ def inject_style() -> None:
         html, body, [class*="css"] { font-family: Inter, Segoe UI, sans-serif; }
         .stApp {
           background:
-            radial-gradient(circle at 8% 8%, rgba(124,58,237,.20), transparent 28%),
-            radial-gradient(circle at 88% 4%, rgba(6,182,212,.18), transparent 30%),
-            radial-gradient(circle at 55% 92%, rgba(236,72,153,.14), transparent 24%),
-            linear-gradient(135deg, #f8fbff 0%, #f7f3ff 46%, #f7fffb 100%);
-          color: #172033;
+            radial-gradient(circle at 8% 4%, rgba(255,74,111,.18), transparent 26%),
+            radial-gradient(circle at 86% 10%, rgba(0,210,255,.16), transparent 30%),
+            radial-gradient(circle at 48% 94%, rgba(124,58,237,.18), transparent 32%),
+            linear-gradient(135deg, #080d1b 0%, #0d1224 42%, #092638 100%);
+          color: #f8fafc;
+        }
+        .block-container {
+          padding-top: 2rem;
+          padding-bottom: 2rem;
+          max-width: 1500px;
+        }
+        section[data-testid="stSidebar"] {
+          background: linear-gradient(180deg, rgba(7,12,28,.98), rgba(10,22,38,.96));
+          border-right: 1px solid rgba(148,163,184,.16);
+        }
+        section[data-testid="stSidebar"] * {
+          color: #e5e7eb;
         }
         .hero {
-          padding: 22px 26px;
-          border: 1px solid rgba(255,255,255,.68);
-          background: rgba(255,255,255,.62);
+          padding: 24px 28px;
+          border: 1px solid rgba(148,163,184,.22);
+          background:
+            linear-gradient(135deg, rgba(16,24,48,.88), rgba(12,48,68,.62)),
+            radial-gradient(circle at 95% 10%, rgba(255,74,111,.22), transparent 28%);
           backdrop-filter: blur(18px);
-          border-radius: 22px;
-          box-shadow: 0 24px 60px rgba(31,41,55,.12);
+          border-radius: 20px;
+          box-shadow: 0 24px 70px rgba(0,0,0,.36);
           margin-bottom: 18px;
         }
         .eyebrow {
-          color: #7c3aed;
+          color: #ff496d;
           font-weight: 800;
           letter-spacing: .06em;
           text-transform: uppercase;
           font-size: 12px;
         }
         .title {
-          color: #172033;
+          color: #f8fafc;
           font-size: 34px;
           font-weight: 850;
           line-height: 1.05;
           margin-top: 4px;
         }
-        .subtitle { color: #64748b; font-size: 15px; margin-top: 8px; }
+        .subtitle { color: #a9b7ca; font-size: 15px; margin-top: 8px; }
         .kpi-card {
-          border: 1px solid rgba(255,255,255,.72);
-          background: rgba(255,255,255,.68);
+          border: 1px solid rgba(148,163,184,.22);
+          background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.055));
           backdrop-filter: blur(18px);
-          border-radius: 18px;
+          border-radius: 16px;
           padding: 18px 18px 16px;
           min-height: 116px;
-          box-shadow: 0 16px 45px rgba(31,41,55,.10);
+          box-shadow: 0 18px 46px rgba(0,0,0,.26);
           transition: transform .18s ease, box-shadow .18s ease;
         }
-        .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 20px 55px rgba(31,41,55,.16); }
-        .kpi-label { color: #64748b; font-weight: 700; font-size: 13px; }
-        .kpi-value { color: #111827; font-size: 32px; font-weight: 850; margin-top: 7px; }
-        .kpi-note { color: #64748b; font-size: 12px; margin-top: 4px; }
+        .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 24px 58px rgba(0,0,0,.38); }
+        .kpi-label { color: #91a0b8; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+        .kpi-value { color: #f8fafc; font-size: 32px; font-weight: 850; margin-top: 7px; }
+        .kpi-note { color: #8493aa; font-size: 12px; margin-top: 4px; }
         .soft-panel {
-          border: 1px solid rgba(255,255,255,.70);
-          background: rgba(255,255,255,.58);
+          border: 1px solid rgba(148,163,184,.18);
+          background: linear-gradient(145deg, rgba(15,23,42,.78), rgba(15,44,63,.48));
           backdrop-filter: blur(16px);
-          border-radius: 20px;
+          border-radius: 18px;
           padding: 18px;
-          box-shadow: 0 18px 50px rgba(31,41,55,.10);
+          box-shadow: 0 20px 58px rgba(0,0,0,.28);
         }
-        .section-title { font-size: 20px; font-weight: 850; color: #172033; margin-bottom: 8px; }
+        .section-title { font-size: 20px; font-weight: 850; color: #f8fafc; margin-bottom: 8px; }
         .badge {
           display: inline-flex;
           align-items: center;
@@ -108,31 +122,59 @@ def inject_style() -> None:
           padding: 6px 10px;
           font-size: 12px;
           font-weight: 800;
-          background: rgba(124,58,237,.10);
-          color: #5b21b6;
-          border: 1px solid rgba(124,58,237,.18);
+          background: rgba(255,74,111,.14);
+          color: #ff8aa0;
+          border: 1px solid rgba(255,74,111,.26);
         }
         .footer-signature {
           text-align: right;
-          color: rgba(15,23,42,.38);
+          color: rgba(226,232,240,.34);
           font-weight: 800;
           padding: 24px 4px 4px;
           transition: color .2s ease;
         }
-        .footer-signature:hover { color: rgba(124,58,237,.72); }
+        .footer-signature:hover { color: rgba(255,74,111,.82); }
         div[data-testid="stMetric"] {
           border-radius: 16px;
           padding: 12px;
-          background: rgba(255,255,255,.52);
-          border: 1px solid rgba(255,255,255,.70);
+          background: rgba(255,255,255,.08);
+          border: 1px solid rgba(148,163,184,.18);
         }
         .stDownloadButton button, .stButton button {
           border-radius: 12px;
           border: 0;
-          background: linear-gradient(135deg, #7c3aed, #ec4899);
+          background: linear-gradient(135deg, #ff496d, #7c3aed);
           color: white;
           font-weight: 800;
-          box-shadow: 0 12px 28px rgba(124,58,237,.22);
+          box-shadow: 0 14px 34px rgba(255,73,109,.22);
+        }
+        .stTabs [data-baseweb="tab-list"] {
+          gap: 18px;
+          border-bottom: 1px solid rgba(148,163,184,.18);
+        }
+        .stTabs [data-baseweb="tab"] {
+          color: #dbeafe;
+          font-weight: 800;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .stTabs [aria-selected="true"] {
+          color: #ff496d !important;
+          border-bottom: 2px solid #ff496d;
+        }
+        div[data-testid="stDataFrame"], div[data-testid="stDataEditor"] {
+          border: 1px solid rgba(148,163,184,.18);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 18px 46px rgba(0,0,0,.24);
+        }
+        h1, h2, h3, h4, h5, h6, p, label, span {
+          color: inherit;
+        }
+        div[data-testid="stAlert"] {
+          background: rgba(255,73,109,.14);
+          color: #fecdd3;
+          border: 1px solid rgba(255,73,109,.24);
         }
         </style>
         """,
@@ -272,9 +314,11 @@ def plot_monthly(monthly: pd.DataFrame) -> None:
         height=390,
         margin=dict(l=10, r=10, t=30, b=10),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,255,255,.35)",
+        plot_bgcolor="rgba(15,23,42,.35)",
+        font=dict(color="#dbeafe"),
         legend=dict(orientation="h", y=1.10),
-        yaxis=dict(title_text="Tickets / porcentaje"),
+        xaxis=dict(gridcolor="rgba(148,163,184,.12)"),
+        yaxis=dict(title_text="Tickets / porcentaje", gridcolor="rgba(148,163,184,.12)"),
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -307,9 +351,11 @@ def plot_adoption(monthly: pd.DataFrame) -> None:
         height=330,
         margin=dict(l=10, r=10, t=30, b=10),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,255,255,.35)",
+        plot_bgcolor="rgba(15,23,42,.35)",
+        font=dict(color="#dbeafe"),
         legend=dict(orientation="h", y=1.12),
-        yaxis=dict(title_text="Clientes / porcentaje"),
+        xaxis=dict(gridcolor="rgba(148,163,184,.12)"),
+        yaxis=dict(title_text="Clientes / porcentaje", gridcolor="rgba(148,163,184,.12)"),
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -323,9 +369,11 @@ def plot_bar(df: pd.DataFrame, name_col: str, value_col: str, title: str, colors
         height=390,
         margin=dict(l=10, r=10, t=45, b=10),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(255,255,255,.35)",
+        plot_bgcolor="rgba(15,23,42,.35)",
+        font=dict(color="#dbeafe"),
         showlegend=False,
-        yaxis=dict(autorange="reversed"),
+        xaxis=dict(gridcolor="rgba(148,163,184,.12)"),
+        yaxis=dict(autorange="reversed", gridcolor="rgba(148,163,184,.12)"),
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -456,7 +504,13 @@ def main() -> None:
             status_counts.columns = ["Estado", "Cantidad"]
             st.markdown('<div class="soft-panel"><div class="section-title">Estado operativo SLA</div>', unsafe_allow_html=True)
             fig = px.pie(status_counts, names="Estado", values="Cantidad", hole=.55, color_discrete_sequence=[COLORS["green"], COLORS["red"], COLORS["yellow"], COLORS["orange"]])
-            fig.update_layout(height=390, margin=dict(l=8, r=8, t=20, b=8), paper_bgcolor="rgba(0,0,0,0)")
+            fig.update_layout(
+                height=390,
+                margin=dict(l=8, r=8, t=20, b=8),
+                paper_bgcolor="rgba(0,0,0,0)",
+                font=dict(color="#dbeafe"),
+                legend=dict(font=dict(color="#dbeafe")),
+            )
             st.plotly_chart(fig, use_container_width=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
