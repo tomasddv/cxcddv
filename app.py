@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import unicodedata
 import urllib.request
 from pathlib import Path
 
@@ -16,6 +17,7 @@ APP_DIR = Path(__file__).parent
 DATA_PATH = APP_DIR / "data" / "dashboard-data.json"
 XLSX_PATH = APP_DIR / "data" / "CXC_BEESCARE_DelValle_analisis.xlsx"
 PPTX_PATH = APP_DIR / "data" / "Capacitacion_JDV_SPV_CXC_BEESCARE_GALAXIA_DelValle.pptx"
+ACTION_PLANS_PATH = APP_DIR / "data" / "planes_accion_guardados.json"
 DEFAULT_CACHE_SECONDS = 300
 
 COLORS = {
@@ -238,6 +240,13 @@ def pct(value: float | int | None, decimals: int = 1) -> str:
     return f"{value:.{decimals}f}%".replace(".", ",")
 
 
+def clean_text(value: object) -> str:
+    text = "" if value is None else str(value)
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(char for char in text if unicodedata.category(char) != "Mn")
+    return text.strip().lower()
+
+
 def status_for(row: pd.Series) -> str:
     if bool(row.get("Cerrado")) and bool(row.get("DentroSLA")):
         return "Cerrado dentro SLA"
@@ -250,6 +259,42 @@ def status_for(row: pd.Series) -> str:
 
 def csv_bytes(df: pd.DataFrame) -> bytes:
     return df.to_csv(index=False, sep=";").encode("utf-8-sig")
+
+
+def action_plan_key(row: pd.Series | dict) -> str:
+    mes = str(row.get("Mes", "") or "")
+    cliente = str(row.get("Cliente", "") or row.get("ClienteId", "") or "")
+    ticket = str(row.get("Ticket", "") or row.get("Motivo", "") or "")
+    return f"{mes}__{cliente}__{ticket}"
+
+
+def load_saved_action_plans() -> dict:
+    if not ACTION_PLANS_PATH.exists():
+        return {}
+    try:
+        with ACTION_PLANS_PATH.open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def save_action_plans(rows: pd.DataFrame) -> None:
+    saved = load_saved_action_plans()
+    editable_cols = [
+        "Responsable",
+        "FechaCompromiso",
+        "AccionRealizada",
+        "ComentarioSeguimiento",
+        "Estado",
+        "ProximoSeguimiento",
+    ]
+    for _, row in rows.iterrows():
+        key = action_plan_key(row)
+        saved[key] = {col: str(row.get(col, "") or "") for col in editable_cols}
+    ACTION_PLANS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with ACTION_PLANS_PATH.open("w", encoding="utf-8") as fh:
+        json.dump(saved, fh, ensure_ascii=False, indent=2)
 
 
 def make_kpi(label: str, value: str, note: str = "", color: str = "#7c3aed") -> None:
@@ -275,7 +320,7 @@ def filter_tickets(tickets: pd.DataFrame, source_label: str) -> pd.DataFrame:
         st.divider()
         st.markdown("### Filtros")
         months = ["Todos"] + sorted(tickets["Mes"].dropna().unique().tolist())
-        selected_month = st.selectbox("Mes", months)
+        selected_month = st.selectbox("Mes", months, key="filter_month")
 
         statuses = ["Todos"] + sorted(tickets["EstadoOperativo"].dropna().unique().tolist())
         selected_status = st.selectbox("Estado SLA", statuses)
@@ -378,14 +423,99 @@ def plot_bar(df: pd.DataFrame, name_col: str, value_col: str, title: str, colors
     st.plotly_chart(fig, use_container_width=True)
 
 
-def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.DataFrame:
-    base = top5.copy()
-    if base.empty:
-        base = plan_clientes.copy()
+def critical_source_for_filter(data: dict) -> tuple[pd.DataFrame, str]:
+    selected_month = st.session_state.get("filter_month", "Todos")
+    mapping = {
+        "2026-03": ("criticosMarzo", "Marzo"),
+        "2026-04": ("criticosAbril", "Abril"),
+        "2026-05": ("criticosMayo", "Mayo"),
+    }
+    if selected_month in mapping:
+        key, label = mapping[selected_month]
+        return as_df(data, key), label
+    frames = [as_df(data, key) for key in ["criticosMarzo", "criticosAbril", "criticosMayo"]]
+    frames = [frame for frame in frames if not frame.empty]
+    if frames:
+        return pd.concat(frames, ignore_index=True), "Todos"
+    return pd.DataFrame(), "Todos"
+
+
+def only_critical_rows(rows: pd.DataFrame) -> pd.DataFrame:
+    if rows.empty or "Criticidad" not in rows.columns:
+        return rows
+    marker = rows["Criticidad"].map(clean_text)
+    return rows[marker.str.contains("critico", na=False) & ~marker.str.startswith("no", na=False)].copy()
+
+
+def add_ticket_details(rows: pd.DataFrame, data: dict) -> pd.DataFrame:
+    if rows.empty:
+        return rows
+    out = rows.copy()
+    tickets = as_df(data, "tickets")
+    if tickets.empty or "Ticket" not in tickets.columns or "Formulario" not in out.columns:
+        return out
+    details = tickets[["Ticket", "Motivo", "Submotivo"]].copy()
+    details["Ticket"] = details["Ticket"].astype(str).str.strip()
+    out["Formulario"] = out["Formulario"].astype(str).str.strip()
+    out = out.merge(details.rename(columns={"Ticket": "Formulario", "Motivo": "MotivoReal", "Submotivo": "SubmotivoReal"}), on="Formulario", how="left")
+    return out
+
+
+def plan_rows_from_critical(data: dict, plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.DataFrame:
+    critical_rows, label = critical_source_for_filter(data)
+    critical_rows = only_critical_rows(critical_rows)
+    if critical_rows.empty:
+        base = top5.copy()
+        if base.empty:
+            base = plan_clientes.copy()
+        return base
+
+    tickets = as_df(data, "tickets")
+    ticket_lookup = {}
+    if not tickets.empty and "Ticket" in tickets.columns:
+        for _, ticket_row in tickets.iterrows():
+            ticket_lookup[str(ticket_row.get("Ticket", "")).strip()] = ticket_row
+
+    rows = []
+    for client_id, group in critical_rows.groupby("ClienteId", dropna=False):
+        first = group.iloc[0]
+        ticket_number = str(first.get("Formulario", "") or "").strip()
+        ticket_info = ticket_lookup.get(ticket_number)
+        real_motivo = ""
+        real_submotivo = ""
+        if ticket_info is not None:
+            real_motivo = str(ticket_info.get("Motivo", "") or "")
+            real_submotivo = str(ticket_info.get("Submotivo", "") or "")
+        rows.append(
+            {
+                "Cliente": str(client_id),
+                "Nombre": "",
+                "Mes": first.get("Mes", label),
+                "TicketsCriticos": len(group),
+                "Ticket": ticket_number or first.get("Ticket", ""),
+                "Motivo": real_motivo or "Sin motivo encontrado",
+                "Submotivo": real_submotivo,
+                "Prioridad": "Alta",
+                "AccionSugerida": "Contactar cliente; analizar causa raiz; asignar responsable; definir correccion; seguimiento semanal hasta cierre.",
+                "Responsable": "JDV / SPV",
+                "FechaCompromiso": "",
+                "AccionRealizada": "",
+                "ComentarioSeguimiento": "",
+                "Estado": "Requiere seguimiento",
+                "ProximoSeguimiento": "",
+            }
+        )
+    return pd.DataFrame(rows).sort_values(["Mes", "TicketsCriticos", "Cliente"], ascending=[True, False, True])
+
+
+def action_plan_editor(data: dict, plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.DataFrame:
+    base = plan_rows_from_critical(data, plan_clientes, top5)
     wanted = [
         "Cliente",
         "Nombre",
         "Mes",
+        "TicketsCriticos",
+        "Ticket",
         "Motivo",
         "Submotivo",
         "Prioridad",
@@ -404,10 +534,17 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
         base["Estado"] = base["Estado"].where(base["Estado"].astype(str).str.len() > 0, base["EstadoSugerido"])
     if "Responsable" not in base.columns or base["Responsable"].astype(str).eq("").all():
         base["Responsable"] = "JDV / SPV"
+    saved_plans = load_saved_action_plans()
+    for idx, row in base.iterrows():
+        saved = saved_plans.get(action_plan_key(row), {})
+        for col, value in saved.items():
+            if col in base.columns:
+                base.at[idx, col] = value
     for text_col in [
         "Cliente",
         "Nombre",
         "Mes",
+        "Ticket",
         "Motivo",
         "Submotivo",
         "Prioridad",
@@ -434,7 +571,7 @@ def action_plan_editor(plan_clientes: pd.DataFrame, top5: pd.DataFrame) -> pd.Da
             "FechaCompromiso": st.column_config.TextColumn("Fecha compromiso", help="Formato sugerido: YYYY-MM-DD"),
             "ProximoSeguimiento": st.column_config.TextColumn("Proximo seguimiento", help="Formato sugerido: YYYY-MM-DD"),
         },
-        key="planes_accion",
+        key=f"planes_accion_{st.session_state.get('filter_month', 'Todos')}",
     )
     return edited
 
@@ -543,14 +680,43 @@ def main() -> None:
         st.download_button("Descargar tickets filtrados CSV", csv_bytes(filtered), "tickets_filtrados_cxc.csv", "text/csv")
 
     with tab_criticos:
+        crit_marzo = as_df(data, "criticosMarzo")
+        crit_abril = as_df(data, "criticosAbril")
+        crit_mayo = as_df(data, "criticosMayo")
+        criticos_all = pd.concat([crit_marzo, crit_abril, crit_mayo], ignore_index=True)
         c1, c2, c3 = st.columns(3)
-        c1.metric("Criticos marzo", kpis.get("criticosMarzo", 0))
-        c2.metric("Criticos abril", kpis.get("criticosAbril", 0))
-        c3.metric("Criticos mayo", kpis.get("criticosMayo", 0))
+        c1.metric("Clientes criticos marzo", crit_marzo["ClienteId"].nunique() if "ClienteId" in crit_marzo else 0)
+        c2.metric("Clientes criticos abril", crit_abril["ClienteId"].nunique() if "ClienteId" in crit_abril else 0)
+        c3.metric("Clientes criticos mayo", crit_mayo["ClienteId"].nunique() if "ClienteId" in crit_mayo else 0)
         c4, c5, c6 = st.columns(3)
         c4.metric(f"Recurrentes {kpis.get('mesCriticoAnterior', 'Abril')}/{kpis.get('mesCriticoVigente', 'Mayo')}", kpis.get("recurrentes", 0))
         c5.metric(f"Nuevos {kpis.get('mesCriticoVigente', 'Mayo')}", kpis.get("nuevosMayo", 0))
         c6.metric(f"Recuperados {kpis.get('mesCriticoVigente', 'Mayo')}", kpis.get("recuperados", 0))
+        st.markdown('<div class="section-title">Base completa de clientes criticos</div>', unsafe_allow_html=True)
+        selected_critical_month = st.radio(
+            "Mes critico",
+            ["Todos", "Marzo", "Abril", "Mayo"],
+            index=0,
+            horizontal=True,
+            key="critical_month",
+        )
+        critical_view = criticos_all.copy()
+        if selected_critical_month != "Todos" and "Mes" in critical_view:
+            critical_view = critical_view[critical_view["Mes"] == selected_critical_month]
+        if "Criticidad" in critical_view:
+            critical_view = only_critical_rows(critical_view)
+        critical_view = add_ticket_details(critical_view, data)
+        if "Formulario" in critical_view.columns:
+            critical_view["TicketNumero"] = critical_view["Formulario"]
+        critical_cols = [col for col in ["Mes", "ClienteId", "TicketNumero", "MotivoReal", "SubmotivoReal", "Distribuidor", "Criticidad"] if col in critical_view.columns]
+        critical_display = critical_view[critical_cols].rename(columns={"TicketNumero": "Ticket"}) if critical_cols else critical_view
+        st.dataframe(critical_display, use_container_width=True, height=360)
+        st.download_button(
+            "Descargar clientes criticos CSV",
+            csv_bytes(critical_display),
+            f"clientes_criticos_{selected_critical_month.lower()}.csv",
+            "text/csv",
+        )
         st.markdown('<div class="section-title">Top clientes criticos para seguimiento</div>', unsafe_allow_html=True)
         st.dataframe(top5, use_container_width=True, height=320)
         st.markdown('<div class="section-title">Tickets en riesgo de cierre masivo</div>', unsafe_allow_html=True)
@@ -559,7 +725,14 @@ def main() -> None:
     with tab_planes:
         st.markdown('<span class="badge">Evidencia editable para JDV / SPV</span>', unsafe_allow_html=True)
         st.markdown("#### Planes de accion para clientes criticos")
-        edited = action_plan_editor(plan_clientes, top5)
+        edited = action_plan_editor(data, plan_clientes, top5)
+        csave, cinfo = st.columns([1, 3])
+        with csave:
+            if st.button("Guardar planes", use_container_width=True):
+                save_action_plans(edited)
+                st.success("Planes guardados en esta PC.")
+        with cinfo:
+            st.caption(f"Guardado local: {ACTION_PLANS_PATH}")
         st.download_button("Descargar planes completados CSV", csv_bytes(edited), "planes_accion_cxc_completados.csv", "text/csv")
         st.markdown("#### Planes sugeridos por motivo")
         st.dataframe(plan_motivos, use_container_width=True, height=360)
