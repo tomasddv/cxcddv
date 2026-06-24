@@ -297,6 +297,24 @@ def save_action_plans(rows: pd.DataFrame) -> None:
         json.dump(saved, fh, ensure_ascii=False, indent=2)
 
 
+def import_action_plans(payload: bytes) -> int:
+    incoming = json.loads(payload.decode("utf-8-sig"))
+    if not isinstance(incoming, dict):
+        raise ValueError("El archivo de planes debe ser un JSON con claves de planes.")
+    saved = load_saved_action_plans()
+    saved.update(incoming)
+    ACTION_PLANS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with ACTION_PLANS_PATH.open("w", encoding="utf-8") as fh:
+        json.dump(saved, fh, ensure_ascii=False, indent=2)
+    return len(incoming)
+
+
+def saved_action_plans_bytes() -> bytes:
+    if not ACTION_PLANS_PATH.exists():
+        return b"{}"
+    return ACTION_PLANS_PATH.read_bytes()
+
+
 def make_kpi(label: str, value: str, note: str = "", color: str = "#7c3aed") -> None:
     st.markdown(
         f"""
@@ -725,6 +743,26 @@ def main() -> None:
     with tab_planes:
         st.markdown('<span class="badge">Evidencia editable para JDV / SPV</span>', unsafe_allow_html=True)
         st.markdown("#### Planes de accion para clientes criticos")
+        saved_count = len(load_saved_action_plans())
+        st.caption(f"Planes guardados detectados: {saved_count}")
+        import_col, export_col = st.columns([1, 1])
+        with import_col:
+            uploaded_plans = st.file_uploader("Importar planes guardados JSON", type=["json"], key="import_action_plans")
+            if uploaded_plans is not None:
+                try:
+                    imported_count = import_action_plans(uploaded_plans.getvalue())
+                    st.success(f"Importados {imported_count} planes. Recargando...")
+                    st.rerun()
+                except Exception as exc:
+                    st.error(f"No se pudo importar el JSON de planes: {exc}")
+        with export_col:
+            st.download_button(
+                "Descargar respaldo de planes JSON",
+                saved_action_plans_bytes(),
+                "planes_accion_guardados.json",
+                "application/json",
+                use_container_width=True,
+            )
         edited = action_plan_editor(data, plan_clientes, top5)
         csave, cinfo = st.columns([1, 3])
         with csave:
