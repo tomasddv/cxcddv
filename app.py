@@ -18,7 +18,7 @@ DATA_PATH = APP_DIR / "data" / "dashboard-data.json"
 XLSX_PATH = APP_DIR / "data" / "CXC_BEESCARE_DelValle_analisis.xlsx"
 PPTX_PATH = APP_DIR / "data" / "Capacitacion_JDV_SPV_CXC_BEESCARE_GALAXIA_DelValle.pptx"
 ACTION_PLANS_PATH = APP_DIR / "data" / "planes_accion_guardados.json"
-DEFAULT_CACHE_SECONDS = 300
+DEFAULT_CACHE_SECONDS = 0
 
 COLORS = {
     "violet": "#7c3aed",
@@ -204,11 +204,19 @@ def normalize_drive_url(url: str) -> str:
     return url
 
 
-@st.cache_data(show_spinner=False, ttl=DEFAULT_CACHE_SECONDS)
 def load_remote_data(source_url: str) -> dict:
+    url = normalize_drive_url(source_url)
+    if "?" in url:
+        url = f"{url}&cache_bust={pd.Timestamp.utcnow().timestamp()}"
+    else:
+        url = f"{url}?cache_bust={pd.Timestamp.utcnow().timestamp()}"
     request = urllib.request.Request(
-        normalize_drive_url(source_url),
-        headers={"User-Agent": "Mozilla/5.0 Streamlit CXC"},
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 Streamlit CXC",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+        },
     )
     with urllib.request.urlopen(request, timeout=25) as response:
         payload = response.read().decode("utf-8-sig")
@@ -219,6 +227,14 @@ def load_remote_data(source_url: str) -> dict:
 def load_local_data(file_mtime: float) -> dict:
     with DATA_PATH.open("r", encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def save_uploaded_dashboard_data(payload: bytes) -> dict:
+    parsed = json.loads(payload.decode("utf-8-sig"))
+    if not isinstance(parsed, dict) or "tickets" not in parsed or "kpis" not in parsed:
+        raise ValueError("El archivo no parece ser un dashboard-data.json valido.")
+    DATA_PATH.write_text(json.dumps(parsed, ensure_ascii=False, indent=2), encoding="utf-8")
+    return parsed
 
 
 def load_data() -> tuple[dict, str]:
@@ -332,9 +348,19 @@ def filter_tickets(tickets: pd.DataFrame, source_label: str) -> pd.DataFrame:
     with st.sidebar:
         st.markdown("### Datos")
         st.caption(f"Fuente actual: {source_label}")
+        st.caption(f"Tickets cargados: {len(tickets)}")
         if st.button("Actualizar / limpiar cache", use_container_width=True):
             st.cache_data.clear()
             st.rerun()
+        uploaded_dashboard = st.file_uploader("Cargar dashboard-data.json", type=["json"], key="upload_dashboard_data")
+        if uploaded_dashboard is not None:
+            try:
+                parsed = save_uploaded_dashboard_data(uploaded_dashboard.getvalue())
+                st.cache_data.clear()
+                st.success(f"JSON cargado: {len(parsed.get('tickets', []))} tickets.")
+                st.rerun()
+            except Exception as exc:
+                st.error(f"No pude cargar el JSON: {exc}")
         st.divider()
         st.markdown("### Filtros")
         months = ["Todos"] + sorted(tickets["Mes"].dropna().unique().tolist())
@@ -614,7 +640,7 @@ def main() -> None:
         <div class="hero">
           <div class="eyebrow">Manual GALAXIA · Nivel 1 · {data.get("distribuidor", "")}</div>
           <div class="title">Dashboard CXC / BEESCARE</div>
-          <div class="subtitle">Periodo analizado: <b>{data.get("periodo", "")}</b> · Generado: {data.get("generado", "")}</div>
+          <div class="subtitle">Periodo analizado: <b>{data.get("periodo", "")}</b> · Generado: {data.get("generado", "")} · Fuente: {source_label} · Tickets: {len(tickets)}</div>
         </div>
         """,
         unsafe_allow_html=True,
