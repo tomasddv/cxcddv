@@ -1,19 +1,19 @@
 {
-    "generado":  "2026-06-16",
+    "generado":  "2026-06-29",
     "periodo":  "2026-01 a 2026-06",
     "distribuidor":  "Distribuidora del Valle",
     "kpis":  {
-                 "totalTickets":  173,
-                 "onTimeAcumulado":  82.5,
-                 "promedioOnTimeMensual":  84.4,
-                 "dentroSLA":  141,
-                 "fueraSLA":  30,
-                 "pendientesDentroSLA":  1,
+                 "totalTickets":  184,
+                 "onTimeAcumulado":  83.1,
+                 "promedioOnTimeMensual":  84.6,
+                 "dentroSLA":  152,
+                 "fueraSLA":  31,
+                 "pendientesDentroSLA":  0,
                  "pendientesVencidos":  1,
                  "riesgoMasivo":  1,
-                 "clientesConTickets":  96,
+                 "clientesConTickets":  102,
                  "denominadorAdopcion":  2156,
-                 "adopcionPromedioMensual":  0.9,
+                 "adopcionPromedioMensual":  0.96,
                  "criticosMarzo":  26,
                  "criticosAbril":  22,
                  "criticosMayo":  2,
@@ -83,27 +83,27 @@
                         "Mes":  "2026-05",
                         "Total":  25,
                         "CerradosDentroSLA":  22,
-                        "CerradosFueraSLA":  2,
+                        "CerradosFueraSLA":  3,
                         "PendDentroSLA":  0,
-                        "PendVencidos":  1,
-                        "OnTime":  0.91666666666666663,
+                        "PendVencidos":  0,
+                        "OnTime":  0.88,
                         "ClientesContactoCXC":  20,
                         "DenominadorAdopcion":  2156,
                         "AdopcionPct":  0.00927643784786642,
-                        "Variacion":  0.02777777777777779
+                        "Variacion":  -0.0088888888888888351
                     },
                     {
                         "Mes":  "2026-06",
-                        "Total":  12,
-                        "CerradosDentroSLA":  10,
+                        "Total":  23,
+                        "CerradosDentroSLA":  21,
                         "CerradosFueraSLA":  1,
-                        "PendDentroSLA":  1,
-                        "PendVencidos":  0,
-                        "OnTime":  0.90909090909090906,
-                        "ClientesContactoCXC":  8,
+                        "PendDentroSLA":  0,
+                        "PendVencidos":  1,
+                        "OnTime":  0.95454545454545459,
+                        "ClientesContactoCXC":  16,
                         "DenominadorAdopcion":  2156,
-                        "AdopcionPct":  0.0037105751391465678,
-                        "Variacion":  -0.007575757575757569
+                        "AdopcionPct":  0.0074211502782931356,
+                        "Variacion":  0.074545454545454581
                     }
                 ],
     "tickets":  [
@@ -125,7 +125,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  165
+                        "DiasAbierto":  178
                     },
                     {
                         "Ticket":  "2063214",
@@ -145,7 +145,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  165
+                        "DiasAbierto":  178
                     },
                     {
                         "Ticket":  "2063216",
@@ -165,7 +165,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  165
+                        "DiasAbierto":  178
                     },
                     {
                         "Ticket":  "2063747",
@@ -185,7 +185,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  164
+                        "DiasAbierto":  177
                     },
                     {
                         "Ticket":  "2064253",
@@ -205,7 +205,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  162
+                        "DiasAbierto":  175
                     },
                     {
                         "Ticket":  "2065576",
@@ -225,7 +225,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  161
+                        "DiasAbierto":  174
                     },
                     {
                         "Ticket":  "2065551",
@@ -245,7 +245,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  161
+                        "DiasAbierto":  174
                     },
                     {
                         "Ticket":  "2066299",
@@ -265,7 +265,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  160
+                        "DiasAbierto":  173
                     },
                     {
                         "Ticket":  "2065909",
@@ -285,7 +285,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  160
+                        "DiasAbierto":  173
                     },
                     {
                         "Ticket":  "2067452",
@@ -305,7 +305,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  159
+                        "DiasAbierto":  172
                     },
                     {
                         "Ticket":  "2068021",
@@ -325,7 +325,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  158
+                        "DiasAbierto":  171
                     },
                     {
                         "Ticket":  "2069456",
@@ -345,7 +345,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  155
+                        "DiasAbierto":  168
                     },
                     {
                         "Ticket":  "2069230",
@@ -365,7 +365,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  155
+                        "DiasAbierto":  168
                     },
                     {
                         "Ticket":  "2069061",
@@ -385,7 +385,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  155
+                        "DiasAbierto":  168
                     },
                     {
                         "Ticket":  "2069399",
@@ -405,7 +405,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  155
+                        "DiasAbierto":  168
                     },
                     {
                         "Ticket":  "2069011",
@@ -425,7 +425,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  155
+                        "DiasAbierto":  168
                     },
                     {
                         "Ticket":  "2070966",
@@ -445,7 +445,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  153
+                        "DiasAbierto":  166
                     },
                     {
                         "Ticket":  "2072501",
@@ -465,7 +465,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  152
+                        "DiasAbierto":  165
                     },
                     {
                         "Ticket":  "2071436",
@@ -485,7 +485,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  152
+                        "DiasAbierto":  165
                     },
                     {
                         "Ticket":  "2073360",
@@ -505,7 +505,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  151
+                        "DiasAbierto":  164
                     },
                     {
                         "Ticket":  "2072772",
@@ -525,7 +525,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  151
+                        "DiasAbierto":  164
                     },
                     {
                         "Ticket":  "2076050",
@@ -545,7 +545,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  146
+                        "DiasAbierto":  159
                     },
                     {
                         "Ticket":  "2076666",
@@ -565,7 +565,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  145
+                        "DiasAbierto":  158
                     },
                     {
                         "Ticket":  "2081945",
@@ -585,7 +585,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  138
+                        "DiasAbierto":  151
                     },
                     {
                         "Ticket":  "2081949",
@@ -605,7 +605,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  138
+                        "DiasAbierto":  151
                     },
                     {
                         "Ticket":  "2082903",
@@ -625,7 +625,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  137
+                        "DiasAbierto":  150
                     },
                     {
                         "Ticket":  "2083113",
@@ -645,7 +645,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  136
+                        "DiasAbierto":  149
                     },
                     {
                         "Ticket":  "2084020",
@@ -665,7 +665,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  134
+                        "DiasAbierto":  147
                     },
                     {
                         "Ticket":  "2085222",
@@ -685,7 +685,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  133
+                        "DiasAbierto":  146
                     },
                     {
                         "Ticket":  "2085237",
@@ -705,7 +705,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  133
+                        "DiasAbierto":  146
                     },
                     {
                         "Ticket":  "2085252",
@@ -725,7 +725,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  133
+                        "DiasAbierto":  146
                     },
                     {
                         "Ticket":  "2085517",
@@ -745,7 +745,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  132
+                        "DiasAbierto":  145
                     },
                     {
                         "Ticket":  "2085490",
@@ -765,7 +765,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  132
+                        "DiasAbierto":  145
                     },
                     {
                         "Ticket":  "2085955",
@@ -785,7 +785,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  132
+                        "DiasAbierto":  145
                     },
                     {
                         "Ticket":  "2086009",
@@ -805,7 +805,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  132
+                        "DiasAbierto":  145
                     },
                     {
                         "Ticket":  "2085805",
@@ -825,7 +825,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  132
+                        "DiasAbierto":  145
                     },
                     {
                         "Ticket":  "2087647",
@@ -845,7 +845,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  130
+                        "DiasAbierto":  143
                     },
                     {
                         "Ticket":  "2091260",
@@ -865,7 +865,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  124
+                        "DiasAbierto":  137
                     },
                     {
                         "Ticket":  "2091271",
@@ -885,7 +885,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  124
+                        "DiasAbierto":  137
                     },
                     {
                         "Ticket":  "2091299",
@@ -905,7 +905,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  124
+                        "DiasAbierto":  137
                     },
                     {
                         "Ticket":  "2091316",
@@ -925,7 +925,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  124
+                        "DiasAbierto":  137
                     },
                     {
                         "Ticket":  "2091332",
@@ -945,7 +945,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  124
+                        "DiasAbierto":  137
                     },
                     {
                         "Ticket":  "2092749",
@@ -965,7 +965,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  123
+                        "DiasAbierto":  136
                     },
                     {
                         "Ticket":  "2093132",
@@ -985,7 +985,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  121
+                        "DiasAbierto":  134
                     },
                     {
                         "Ticket":  "2096001",
@@ -1005,7 +1005,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  115
+                        "DiasAbierto":  128
                     },
                     {
                         "Ticket":  "2096276",
@@ -1025,7 +1025,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  115
+                        "DiasAbierto":  128
                     },
                     {
                         "Ticket":  "2097199",
@@ -1045,7 +1045,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  113
+                        "DiasAbierto":  126
                     },
                     {
                         "Ticket":  "2097268",
@@ -1065,7 +1065,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  113
+                        "DiasAbierto":  126
                     },
                     {
                         "Ticket":  "2096498",
@@ -1085,7 +1085,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  113
+                        "DiasAbierto":  126
                     },
                     {
                         "Ticket":  "2098754",
@@ -1105,7 +1105,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  111
+                        "DiasAbierto":  124
                     },
                     {
                         "Ticket":  "2099113",
@@ -1125,7 +1125,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  110
+                        "DiasAbierto":  123
                     },
                     {
                         "Ticket":  "2099967",
@@ -1145,7 +1145,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  110
+                        "DiasAbierto":  123
                     },
                     {
                         "Ticket":  "2099968",
@@ -1165,7 +1165,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  110
+                        "DiasAbierto":  123
                     },
                     {
                         "Ticket":  "2100487",
@@ -1185,7 +1185,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  109
+                        "DiasAbierto":  122
                     },
                     {
                         "Ticket":  "2100685",
@@ -1205,7 +1205,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  109
+                        "DiasAbierto":  122
                     },
                     {
                         "Ticket":  "2101311",
@@ -1225,7 +1225,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  106
+                        "DiasAbierto":  119
                     },
                     {
                         "Ticket":  "2102687",
@@ -1245,7 +1245,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  105
+                        "DiasAbierto":  118
                     },
                     {
                         "Ticket":  "2102855",
@@ -1265,7 +1265,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  105
+                        "DiasAbierto":  118
                     },
                     {
                         "Ticket":  "2102857",
@@ -1285,7 +1285,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  105
+                        "DiasAbierto":  118
                     },
                     {
                         "Ticket":  "2103447",
@@ -1305,7 +1305,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  104
+                        "DiasAbierto":  117
                     },
                     {
                         "Ticket":  "2104219",
@@ -1325,7 +1325,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  103
+                        "DiasAbierto":  116
                     },
                     {
                         "Ticket":  "2104257",
@@ -1345,7 +1345,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  103
+                        "DiasAbierto":  116
                     },
                     {
                         "Ticket":  "2104984",
@@ -1365,7 +1365,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  102
+                        "DiasAbierto":  115
                     },
                     {
                         "Ticket":  "2104992",
@@ -1385,7 +1385,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  102
+                        "DiasAbierto":  115
                     },
                     {
                         "Ticket":  "2106471",
@@ -1405,7 +1405,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  99
+                        "DiasAbierto":  112
                     },
                     {
                         "Ticket":  "2106742",
@@ -1425,7 +1425,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  98
+                        "DiasAbierto":  111
                     },
                     {
                         "Ticket":  "2106955",
@@ -1445,7 +1445,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  98
+                        "DiasAbierto":  111
                     },
                     {
                         "Ticket":  "2106956",
@@ -1465,7 +1465,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  98
+                        "DiasAbierto":  111
                     },
                     {
                         "Ticket":  "2106962",
@@ -1485,7 +1485,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  98
+                        "DiasAbierto":  111
                     },
                     {
                         "Ticket":  "2107985",
@@ -1505,7 +1505,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  97
+                        "DiasAbierto":  110
                     },
                     {
                         "Ticket":  "2107310",
@@ -1525,7 +1525,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  97
+                        "DiasAbierto":  110
                     },
                     {
                         "Ticket":  "2108230",
@@ -1545,7 +1545,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  96
+                        "DiasAbierto":  109
                     },
                     {
                         "Ticket":  "2111339",
@@ -1565,7 +1565,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  91
+                        "DiasAbierto":  104
                     },
                     {
                         "Ticket":  "2111388",
@@ -1585,7 +1585,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  91
+                        "DiasAbierto":  104
                     },
                     {
                         "Ticket":  "2111713",
@@ -1605,7 +1605,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  91
+                        "DiasAbierto":  104
                     },
                     {
                         "Ticket":  "2111714",
@@ -1625,7 +1625,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  91
+                        "DiasAbierto":  104
                     },
                     {
                         "Ticket":  "2113443",
@@ -1645,7 +1645,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  88
+                        "DiasAbierto":  101
                     },
                     {
                         "Ticket":  "2114303",
@@ -1665,7 +1665,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  87
+                        "DiasAbierto":  100
                     },
                     {
                         "Ticket":  "2114324",
@@ -1685,7 +1685,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  86
+                        "DiasAbierto":  99
                     },
                     {
                         "Ticket":  "2115305",
@@ -1705,7 +1705,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  83
+                        "DiasAbierto":  96
                     },
                     {
                         "Ticket":  "2115404",
@@ -1725,7 +1725,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  83
+                        "DiasAbierto":  96
                     },
                     {
                         "Ticket":  "2115205",
@@ -1745,7 +1745,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  83
+                        "DiasAbierto":  96
                     },
                     {
                         "Ticket":  "2117875",
@@ -1765,7 +1765,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  78
+                        "DiasAbierto":  91
                     },
                     {
                         "Ticket":  "2118517",
@@ -1785,7 +1785,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  77
+                        "DiasAbierto":  90
                     },
                     {
                         "Ticket":  "2119157",
@@ -1805,7 +1805,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  77
+                        "DiasAbierto":  90
                     },
                     {
                         "Ticket":  "2119246",
@@ -1825,7 +1825,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  76
+                        "DiasAbierto":  89
                     },
                     {
                         "Ticket":  "2121925",
@@ -1845,7 +1845,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  70
+                        "DiasAbierto":  83
                     },
                     {
                         "Ticket":  "2122472",
@@ -1865,7 +1865,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  69
+                        "DiasAbierto":  82
                     },
                     {
                         "Ticket":  "2122305",
@@ -1885,7 +1885,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  69
+                        "DiasAbierto":  82
                     },
                     {
                         "Ticket":  "2122667",
@@ -1905,7 +1905,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  69
+                        "DiasAbierto":  82
                     },
                     {
                         "Ticket":  "2123325",
@@ -1925,7 +1925,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  68
+                        "DiasAbierto":  81
                     },
                     {
                         "Ticket":  "2123326",
@@ -1945,7 +1945,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  68
+                        "DiasAbierto":  81
                     },
                     {
                         "Ticket":  "2123622",
@@ -1965,7 +1965,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  67
+                        "DiasAbierto":  80
                     },
                     {
                         "Ticket":  "2124020",
@@ -1985,7 +1985,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  66
+                        "DiasAbierto":  79
                     },
                     {
                         "Ticket":  "2124023",
@@ -2005,7 +2005,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  66
+                        "DiasAbierto":  79
                     },
                     {
                         "Ticket":  "2124312",
@@ -2025,7 +2025,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  66
+                        "DiasAbierto":  79
                     },
                     {
                         "Ticket":  "2124692",
@@ -2045,7 +2045,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  64
+                        "DiasAbierto":  77
                     },
                     {
                         "Ticket":  "2125258",
@@ -2065,7 +2065,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  63
+                        "DiasAbierto":  76
                     },
                     {
                         "Ticket":  "2125361",
@@ -2085,7 +2085,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  63
+                        "DiasAbierto":  76
                     },
                     {
                         "Ticket":  "2125606",
@@ -2105,7 +2105,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  63
+                        "DiasAbierto":  76
                     },
                     {
                         "Ticket":  "2125904",
@@ -2125,7 +2125,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  62
+                        "DiasAbierto":  75
                     },
                     {
                         "Ticket":  "2126081",
@@ -2145,7 +2145,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  62
+                        "DiasAbierto":  75
                     },
                     {
                         "Ticket":  "2126778",
@@ -2165,7 +2165,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  61
+                        "DiasAbierto":  74
                     },
                     {
                         "Ticket":  "2126789",
@@ -2185,7 +2185,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  61
+                        "DiasAbierto":  74
                     },
                     {
                         "Ticket":  "2128088",
@@ -2205,7 +2205,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  59
+                        "DiasAbierto":  72
                     },
                     {
                         "Ticket":  "2128086",
@@ -2225,7 +2225,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  59
+                        "DiasAbierto":  72
                     },
                     {
                         "Ticket":  "2129725",
@@ -2245,7 +2245,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  56
+                        "DiasAbierto":  69
                     },
                     {
                         "Ticket":  "2133219",
@@ -2265,7 +2265,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  49
+                        "DiasAbierto":  62
                     },
                     {
                         "Ticket":  "2133989",
@@ -2285,7 +2285,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  48
+                        "DiasAbierto":  61
                     },
                     {
                         "Ticket":  "2135191",
@@ -2305,7 +2305,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  44
+                        "DiasAbierto":  57
                     },
                     {
                         "Ticket":  "2135831",
@@ -2325,7 +2325,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  43
+                        "DiasAbierto":  56
                     },
                     {
                         "Ticket":  "2137589",
@@ -2345,7 +2345,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  40
+                        "DiasAbierto":  53
                     },
                     {
                         "Ticket":  "2141050",
@@ -2365,7 +2365,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  34
+                        "DiasAbierto":  47
                     },
                     {
                         "Ticket":  "2141587",
@@ -2385,7 +2385,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  33
+                        "DiasAbierto":  46
                     },
                     {
                         "Ticket":  "2141809",
@@ -2405,7 +2405,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  32
+                        "DiasAbierto":  45
                     },
                     {
                         "Ticket":  "2141779",
@@ -2425,7 +2425,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  32
+                        "DiasAbierto":  45
                     },
                     {
                         "Ticket":  "2142654",
@@ -2445,7 +2445,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  29
+                        "DiasAbierto":  42
                     },
                     {
                         "Ticket":  "2144284",
@@ -2465,7 +2465,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  27
+                        "DiasAbierto":  40
                     },
                     {
                         "Ticket":  "2144364",
@@ -2485,7 +2485,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  27
+                        "DiasAbierto":  40
                     },
                     {
                         "Ticket":  "2144384",
@@ -2505,7 +2505,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  27
+                        "DiasAbierto":  40
                     },
                     {
                         "Ticket":  "2144391",
@@ -2525,7 +2525,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  27
+                        "DiasAbierto":  40
                     },
                     {
                         "Ticket":  "2144678",
@@ -2545,7 +2545,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  26
+                        "DiasAbierto":  39
                     },
                     {
                         "Ticket":  "2145596",
@@ -2565,7 +2565,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  25
+                        "DiasAbierto":  38
                     },
                     {
                         "Ticket":  "2145775",
@@ -2585,7 +2585,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  25
+                        "DiasAbierto":  38
                     },
                     {
                         "Ticket":  "2146009",
@@ -2605,7 +2605,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  24
+                        "DiasAbierto":  37
                     },
                     {
                         "Ticket":  "2147227",
@@ -2625,7 +2625,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  20
+                        "DiasAbierto":  33
                     },
                     {
                         "Ticket":  "2147578",
@@ -2645,7 +2645,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  20
+                        "DiasAbierto":  33
                     },
                     {
                         "Ticket":  "2147960",
@@ -2665,7 +2665,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  19
+                        "DiasAbierto":  32
                     },
                     {
                         "Ticket":  "2147731",
@@ -2685,7 +2685,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  19
+                        "DiasAbierto":  32
                     },
                     {
                         "Ticket":  "2147789",
@@ -2705,7 +2705,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  19
+                        "DiasAbierto":  32
                     },
                     {
                         "Ticket":  "2147800",
@@ -2725,7 +2725,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  19
+                        "DiasAbierto":  32
                     },
                     {
                         "Ticket":  "2151280",
@@ -2745,7 +2745,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  12
+                        "DiasAbierto":  25
                     },
                     {
                         "Ticket":  "2153289",
@@ -2765,7 +2765,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  8
+                        "DiasAbierto":  21
                     },
                     {
                         "Ticket":  "2153309",
@@ -2785,7 +2785,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  8
+                        "DiasAbierto":  21
                     },
                     {
                         "Ticket":  "2153022",
@@ -2805,7 +2805,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  8
+                        "DiasAbierto":  21
                     },
                     {
                         "Ticket":  "2153572",
@@ -2825,7 +2825,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  7
+                        "DiasAbierto":  20
                     },
                     {
                         "Ticket":  "2154512",
@@ -2845,7 +2845,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  6
+                        "DiasAbierto":  19
                     },
                     {
                         "Ticket":  "2154835",
@@ -2865,7 +2865,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  6
+                        "DiasAbierto":  19
                     },
                     {
                         "Ticket":  "2154621",
@@ -2885,7 +2885,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  6
+                        "DiasAbierto":  19
                     },
                     {
                         "Ticket":  "2155115",
@@ -2905,7 +2905,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  5
+                        "DiasAbierto":  18
                     },
                     {
                         "Ticket":  "2154946",
@@ -2913,6 +2913,226 @@
                         "FechaSolucion":  "2026-06-11",
                         "Mes":  "2026-06",
                         "ClienteId":  "07054900003693",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  18
+                    },
+                    {
+                        "Ticket":  "2156406",
+                        "FechaCreacion":  "2026-06-15",
+                        "FechaSolucion":  "2026-06-16",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900004200",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  14
+                    },
+                    {
+                        "Ticket":  "2156390",
+                        "FechaCreacion":  "2026-06-15",
+                        "FechaSolucion":  "2026-06-16",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900004667",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  14
+                    },
+                    {
+                        "Ticket":  "2156504",
+                        "FechaCreacion":  "2026-06-16",
+                        "FechaSolucion":  "2026-06-16",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900001728",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Modificación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  13
+                    },
+                    {
+                        "Ticket":  "2156505",
+                        "FechaCreacion":  "2026-06-16",
+                        "FechaSolucion":  "2026-06-16",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900001728",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  13
+                    },
+                    {
+                        "Ticket":  "2157430",
+                        "FechaCreacion":  "2026-06-17",
+                        "FechaSolucion":  "2026-06-17",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900005057",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Modificación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  12
+                    },
+                    {
+                        "Ticket":  "2157433",
+                        "FechaCreacion":  "2026-06-17",
+                        "FechaSolucion":  "2026-06-17",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900005057",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Modificación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  12
+                    },
+                    {
+                        "Ticket":  "2158202",
+                        "FechaCreacion":  "2026-06-18",
+                        "FechaSolucion":  "2026-06-18",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900002822",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "12",
+                        "Motivo":  "Programa de puntos [BEES]",
+                        "Submotivo":  "Canjes De Puntos",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  11
+                    },
+                    {
+                        "Ticket":  "2160322",
+                        "FechaCreacion":  "2026-06-23",
+                        "FechaSolucion":  "2026-06-23",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900100901",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  6
+                    },
+                    {
+                        "Ticket":  "2160200",
+                        "FechaCreacion":  "2026-06-23",
+                        "FechaSolucion":  "2026-06-23",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900100973",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  6
+                    },
+                    {
+                        "Ticket":  "2160428",
+                        "FechaCreacion":  "2026-06-23",
+                        "FechaSolucion":  "2026-06-24",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900100901",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado dentro del SLA",
+                        "SLA":  "4",
+                        "Motivo":  "Soporte en relación a un pedido",
+                        "Submotivo":  "Cancelación De Pedido",
+                        "Cerrado":  true,
+                        "DentroSLA":  true,
+                        "FueraSLA":  false,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  6
+                    },
+                    {
+                        "Ticket":  "2160817",
+                        "FechaCreacion":  "2026-06-24",
+                        "FechaSolucion":  "2026-06-24",
+                        "Mes":  "2026-06",
+                        "ClienteId":  "07054900004954",
                         "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
                         "Estado":  "Cerrado dentro del SLA",
                         "SLA":  "4",
@@ -2945,7 +3165,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  161
+                        "DiasAbierto":  174
                     },
                     {
                         "Ticket":  "2072381",
@@ -2965,7 +3185,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  152
+                        "DiasAbierto":  165
                     },
                     {
                         "Ticket":  "2074191",
@@ -2985,7 +3205,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  148
+                        "DiasAbierto":  161
                     },
                     {
                         "Ticket":  "2076522",
@@ -3005,7 +3225,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  146
+                        "DiasAbierto":  159
                     },
                     {
                         "Ticket":  "2083239",
@@ -3025,7 +3245,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  136
+                        "DiasAbierto":  149
                     },
                     {
                         "Ticket":  "2087640",
@@ -3045,7 +3265,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  130
+                        "DiasAbierto":  143
                     },
                     {
                         "Ticket":  "2093078",
@@ -3065,7 +3285,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  122
+                        "DiasAbierto":  135
                     },
                     {
                         "Ticket":  "2092974",
@@ -3085,7 +3305,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  122
+                        "DiasAbierto":  135
                     },
                     {
                         "Ticket":  "2093212",
@@ -3105,7 +3325,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  120
+                        "DiasAbierto":  133
                     },
                     {
                         "Ticket":  "2094585",
@@ -3125,7 +3345,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  117
+                        "DiasAbierto":  130
                     },
                     {
                         "Ticket":  "2096275",
@@ -3145,7 +3365,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  115
+                        "DiasAbierto":  128
                     },
                     {
                         "Ticket":  "2096923",
@@ -3165,7 +3385,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  113
+                        "DiasAbierto":  126
                     },
                     {
                         "Ticket":  "2096876",
@@ -3185,7 +3405,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  113
+                        "DiasAbierto":  126
                     },
                     {
                         "Ticket":  "2098019",
@@ -3205,7 +3425,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  112
+                        "DiasAbierto":  125
                     },
                     {
                         "Ticket":  "2099078",
@@ -3225,7 +3445,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  111
+                        "DiasAbierto":  124
                     },
                     {
                         "Ticket":  "2099565",
@@ -3245,7 +3465,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  110
+                        "DiasAbierto":  123
                     },
                     {
                         "Ticket":  "2103037",
@@ -3265,7 +3485,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  104
+                        "DiasAbierto":  117
                     },
                     {
                         "Ticket":  "2106469",
@@ -3285,7 +3505,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  99
+                        "DiasAbierto":  112
                     },
                     {
                         "Ticket":  "2107083",
@@ -3305,7 +3525,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  98
+                        "DiasAbierto":  111
                     },
                     {
                         "Ticket":  "2107259",
@@ -3325,7 +3545,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  98
+                        "DiasAbierto":  111
                     },
                     {
                         "Ticket":  "2112653",
@@ -3345,7 +3565,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  89
+                        "DiasAbierto":  102
                     },
                     {
                         "Ticket":  "2113440",
@@ -3365,7 +3585,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  88
+                        "DiasAbierto":  101
                     },
                     {
                         "Ticket":  "2113841",
@@ -3385,7 +3605,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  88
+                        "DiasAbierto":  101
                     },
                     {
                         "Ticket":  "2119162",
@@ -3405,7 +3625,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  77
+                        "DiasAbierto":  90
                     },
                     {
                         "Ticket":  "2120745",
@@ -3425,7 +3645,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  71
+                        "DiasAbierto":  84
                     },
                     {
                         "Ticket":  "2125601",
@@ -3445,7 +3665,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  63
+                        "DiasAbierto":  76
                     },
                     {
                         "Ticket":  "2129420",
@@ -3465,7 +3685,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  56
+                        "DiasAbierto":  69
                     },
                     {
                         "Ticket":  "2134858",
@@ -3485,7 +3705,27 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  46
+                        "DiasAbierto":  59
+                    },
+                    {
+                        "Ticket":  "2144424",
+                        "FechaCreacion":  "2026-05-20",
+                        "FechaSolucion":  "2026-06-18",
+                        "Mes":  "2026-05",
+                        "ClienteId":  "07054900004728",
+                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
+                        "Estado":  "Cerrado fuera del SLA",
+                        "SLA":  "72",
+                        "Motivo":  "Manejo de Equipo de Frío y Mobiliarios",
+                        "Submotivo":  "Mantenimiento De Equipos",
+                        "Cerrado":  true,
+                        "DentroSLA":  false,
+                        "FueraSLA":  true,
+                        "Pendiente":  false,
+                        "PendienteVencido":  false,
+                        "RiesgoMasivo":  false,
+                        "Alcance":  "Corresponde",
+                        "DiasAbierto":  40
                     },
                     {
                         "Ticket":  "2147804",
@@ -3505,7 +3745,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  19
+                        "DiasAbierto":  32
                     },
                     {
                         "Ticket":  "2149604",
@@ -3525,7 +3765,7 @@
                         "PendienteVencido":  false,
                         "RiesgoMasivo":  false,
                         "Alcance":  "No corresponde",
-                        "DiasAbierto":  15
+                        "DiasAbierto":  28
                     },
                     {
                         "Ticket":  "2155135",
@@ -3533,26 +3773,6 @@
                         "FechaSolucion":  "",
                         "Mes":  "2026-06",
                         "ClienteId":  "07054900003270",
-                        "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
-                        "Estado":  "Pendiente dentro del SLA",
-                        "SLA":  "72",
-                        "Motivo":  "Manejo de Equipo de Frío y Mobiliarios",
-                        "Submotivo":  "Mantenimiento De Equipos",
-                        "Cerrado":  false,
-                        "DentroSLA":  true,
-                        "FueraSLA":  false,
-                        "Pendiente":  true,
-                        "PendienteVencido":  false,
-                        "RiesgoMasivo":  false,
-                        "Alcance":  "Corresponde",
-                        "DiasAbierto":  5
-                    },
-                    {
-                        "Ticket":  "2144424",
-                        "FechaCreacion":  "2026-05-20",
-                        "FechaSolucion":  "",
-                        "Mes":  "2026-05",
-                        "ClienteId":  "07054900004728",
                         "Distribuidor":  "DISTRIBUIDORA DEL VALLE S.A.",
                         "Estado":  "Pendiente vencido",
                         "SLA":  "72",
@@ -3565,13 +3785,13 @@
                         "PendienteVencido":  true,
                         "RiesgoMasivo":  true,
                         "Alcance":  "Corresponde",
-                        "DiasAbierto":  27
+                        "DiasAbierto":  18
                     }
                 ],
     "topMotivos":  [
                        {
                            "Nombre":  "Soporte en relación a un pedido",
-                           "Cantidad":  113
+                           "Cantidad":  123
                        },
                        {
                            "Nombre":  "Manejo de Equipo de Frío y Mobiliarios",
@@ -3587,7 +3807,7 @@
                        },
                        {
                            "Nombre":  "Programa de puntos [BEES]",
-                           "Cantidad":  5
+                           "Cantidad":  6
                        },
                        {
                            "Nombre":  "Marketing y eventos [BEES] [BEES_Force]",
@@ -3601,7 +3821,11 @@
     "topSubmotivos":  [
                           {
                               "Nombre":  "Cancelación De Pedido",
-                              "Cantidad":  67
+                              "Cantidad":  74
+                          },
+                          {
+                              "Nombre":  "Modificación De Pedido",
+                              "Cantidad":  23
                           },
                           {
                               "Nombre":  "Mantenimiento De Equipos",
@@ -3612,23 +3836,19 @@
                               "Cantidad":  20
                           },
                           {
-                              "Nombre":  "Modificación De Pedido",
-                              "Cantidad":  20
+                              "Nombre":  "Precios / Promociones / Descuentos",
+                              "Cantidad":  7
                           },
                           {
                               "Nombre":  "Status del Ticket",
                               "Cantidad":  7
                           },
                           {
-                              "Nombre":  "Precios / Promociones / Descuentos",
-                              "Cantidad":  7
-                          },
-                          {
-                              "Nombre":  "Catálogo",
+                              "Nombre":  "Pedido De Equipo",
                               "Cantidad":  5
                           },
                           {
-                              "Nombre":  "Pedido De Equipo",
+                              "Nombre":  "Catálogo",
                               "Cantidad":  5
                           },
                           {
@@ -3643,7 +3863,7 @@
     "alcance":  [
                     {
                         "Nombre":  "Corresponde",
-                        "Cantidad":  156
+                        "Cantidad":  167
                     },
                     {
                         "Nombre":  "No corresponde",
@@ -4385,21 +4605,21 @@
                          ],
     "riesgoTickets":  [
                           {
-                              "Ticket":  "2144424",
-                              "FechaCreacion":  "2026-05-20",
+                              "Ticket":  "2155135",
+                              "FechaCreacion":  "2026-06-11",
                               "FechaSolucion":  "",
-                              "Mes":  "2026-05",
-                              "ClienteId":  "07054900004728",
+                              "Mes":  "2026-06",
+                              "ClienteId":  "07054900003270",
                               "Estado":  "Pendiente vencido",
                               "Motivo":  "Manejo de Equipo de Frío y Mobiliarios",
                               "Submotivo":  "Mantenimiento De Equipos",
-                              "DiasAbierto":  27
+                              "DiasAbierto":  18
                           }
                       ],
     "planMotivos":  [
                         {
                             "Motivo":  "Soporte en relación a un pedido",
-                            "ProblemaDetectado":  "113 tickets",
+                            "ProblemaDetectado":  "123 tickets",
                             "AccionSugerida":  "Capacitar en BEES; validar app; acompañar próxima compra; escalar soporte técnico si corresponde.",
                             "ResponsableSugerido":  "JDV / SPV",
                             "Prioridad":  "Alta"
@@ -4427,7 +4647,7 @@
                         },
                         {
                             "Motivo":  "Programa de puntos [BEES]",
-                            "ProblemaDetectado":  "5 tickets",
+                            "ProblemaDetectado":  "6 tickets",
                             "AccionSugerida":  "Capacitar en BEES; validar app; acompañar próxima compra; escalar soporte técnico si corresponde.",
                             "ResponsableSugerido":  "JDV / SPV",
                             "Prioridad":  "Alta"
@@ -4489,9 +4709,9 @@
                              "Submotivo":  "",
                              "AccionSugerida":  "Contactar cliente; analizar causa raíz; asignar responsable; definir corrección; seguimiento semanal hasta cierre.",
                              "Responsable":  "JDV / SPV",
-                             "FechaCompromiso":  "2026-06-23",
+                             "FechaCompromiso":  "2026-07-06",
                              "Estado":  "Requiere seguimiento",
-                             "ProximoSeguimiento":  "2026-06-30",
+                             "ProximoSeguimiento":  "2026-07-13",
                              "EvidenciaRequerida":  "Registro de contacto, responsable asignado y cierre/avance del caso"
                          },
                          {
@@ -4503,9 +4723,9 @@
                              "Submotivo":  "",
                              "AccionSugerida":  "Contactar cliente; analizar causa raíz; asignar responsable; definir corrección; seguimiento semanal hasta cierre.",
                              "Responsable":  "JDV / SPV",
-                             "FechaCompromiso":  "2026-06-23",
+                             "FechaCompromiso":  "2026-07-06",
                              "Estado":  "Requiere seguimiento",
-                             "ProximoSeguimiento":  "2026-06-30",
+                             "ProximoSeguimiento":  "2026-07-13",
                              "EvidenciaRequerida":  "Registro de contacto, responsable asignado y cierre/avance del caso"
                          }
                      ],
