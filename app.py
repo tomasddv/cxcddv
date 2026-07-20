@@ -201,6 +201,9 @@ def normalize_drive_url(url: str) -> str:
         return ""
     if "drive.google.com/drive/folders/" in url:
         raise ValueError("DATA_URL debe ser el link del archivo dashboard-data.json, no el link de la carpeta de Drive.")
+    spreadsheet_match = re.search(r"docs\.google\.com/spreadsheets/d/([A-Za-z0-9_-]+)", url)
+    if spreadsheet_match:
+        return f"https://docs.google.com/spreadsheets/d/{spreadsheet_match.group(1)}/export?format=xlsx"
     match = re.search(r"/d/([A-Za-z0-9_-]+)", url) or re.search(r"[?&]id=([A-Za-z0-9_-]+)", url)
     if "drive.google.com" in url and match:
         return f"https://drive.google.com/uc?export=download&id={match.group(1)}"
