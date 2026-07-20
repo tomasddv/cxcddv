@@ -5,6 +5,9 @@ import os
 import re
 import unicodedata
 import urllib.request
+from collections import Counter
+from datetime import date, datetime
+from io import BytesIO
 from pathlib import Path
 
 import pandas as pd
@@ -204,6 +207,207 @@ def normalize_drive_url(url: str) -> str:
     return url
 
 
+def parse_date_value(value: object) -> date | None:
+    if pd.isna(value):
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    parsed = pd.to_datetime(value, errors="coerce", dayfirst=True)
+    if pd.isna(parsed):
+        return None
+    return parsed.date()
+
+
+def scope_for(motivo: object, submotivo: object) -> str:
+    text = clean_text(f"{motivo or ''} {submotivo or ''}")
+    no_scope = [
+        "ticket proactivo",
+        "categoria del agente",
+        "revision app",
+        "revision de la aplicacion",
+        "ayuda app",
+        "ayuda con la aplicacion",
+        "programa puntos",
+        "programa de puntos",
+        "tickets partners",
+        "vale",
+    ]
+    in_scope = [
+        "experiencia con servicio empresa",
+        "experiencia con el servicio de la empresa",
+        "soporte pedido",
+        "soporte en relacion a un pedido",
+        "equipo frio",
+        "equipo de frio",
+        "mobiliario",
+        "retornable",
+        "marketing",
+        "eventos",
+        "perfil cliente",
+        "reclamos financieros",
+        "asuntos financieros",
+        "close the loop",
+    ]
+    if any(item in text for item in no_scope):
+        return "No corresponde"
+    if any(item in text for item in in_scope):
+        return "Corresponde"
+    return "Corresponde"
+
+
+def local_client_id(client_id: object) -> str:
+    digits = re.sub(r"\D", "", str(client_id or ""))
+    if len(digits) > 6:
+        digits = digits[6:]
+    return digits.lstrip("0") or str(client_id or "")
+
+
+def count_records(rows: list[dict], field: str, limit: int = 10) -> list[dict]:
+    return [
+        {"Nombre": str(name or "Sin dato"), "Cantidad": int(count)}
+        for name, count in Counter(row.get(field) or "Sin dato" for row in rows).most_common(limit)
+    ]
+
+
+def build_dashboard_data_from_excel(payload: bytes, base: dict | None = None) -> dict:
+    base = dict(base or {})
+    df = pd.read_excel(BytesIO(payload), sheet_name="Export", engine="openpyxl")
+    df = df.dropna(how="all")
+    columns = {clean_text(col): col for col in df.columns}
+
+    def pick(*names: str) -> str:
+        for name in names:
+            key = clean_text(name)
+            if key in columns:
+                return columns[key]
+        raise ValueError(f"Falta columna requerida en Excel: {', '.join(names)}")
+
+    c_fecha = pick("FECHA CREACIÓN", "Fecha creacion")
+    c_sol = pick("FECHA SOLUCIÓN", "Fecha solucion", "Fecha cierre")
+    c_cliente = pick("ID CLIENTE", "Codigo cliente", "Customer Account ID")
+    c_dist = pick("DISTRIBUIDOR", "Distribuidor")
+    c_ticket = pick("N° TICKET", "ID Ticket", "Ticket")
+    c_estado = pick("ESTADO", "Estado")
+    c_sla = pick("SLA")
+    c_motivo = pick("MOTIVO", "Motivo")
+    c_sub = pick("SUBMOTIVO", "Submotivo")
+
+    today = date.today()
+    tickets: list[dict] = []
+    for _, row in df.iterrows():
+        distribuidor = str(row.get(c_dist) or "")
+        if "distribuidora del valle" not in clean_text(distribuidor):
+            continue
+        created = parse_date_value(row.get(c_fecha))
+        if not created:
+            continue
+        solved = parse_date_value(row.get(c_sol))
+        estado = str(row.get(c_estado) or "")
+        estado_clean = clean_text(estado)
+        cerrado = "cerrado" in estado_clean
+        dentro = "dentro" in estado_clean and "sla" in estado_clean
+        fuera = "fuera" in estado_clean
+        pendiente = "pendiente" in estado_clean or not cerrado
+        pendiente_vencido = pendiente and ("vencido" in estado_clean or "fuera" in estado_clean)
+        dias_abierto = (today - created).days if not solved else (solved - created).days
+        motivo = str(row.get(c_motivo) or "")
+        submotivo = str(row.get(c_sub) or "")
+        tickets.append(
+            {
+                "Ticket": str(row.get(c_ticket) or "").replace(".0", ""),
+                "FechaCreacion": created.isoformat(),
+                "FechaSolucion": solved.isoformat() if solved else "",
+                "Mes": created.strftime("%Y-%m"),
+                "ClienteId": str(row.get(c_cliente) or "").replace(".0", ""),
+                "Distribuidor": distribuidor,
+                "Estado": estado,
+                "SLA": str(row.get(c_sla) or ""),
+                "Motivo": motivo,
+                "Submotivo": submotivo,
+                "Cerrado": bool(cerrado),
+                "DentroSLA": bool(cerrado and dentro and not fuera),
+                "FueraSLA": bool(cerrado and fuera),
+                "Pendiente": bool(pendiente),
+                "PendienteVencido": bool(pendiente_vencido),
+                "RiesgoMasivo": bool(pendiente and not solved and dias_abierto > 10),
+                "Alcance": scope_for(motivo, submotivo),
+                "DiasAbierto": int(dias_abierto),
+            }
+        )
+
+    if not tickets:
+        raise ValueError("El Excel no trajo tickets validos para Distribuidora del Valle.")
+
+    denominator = int(base.get("kpis", {}).get("denominadorAdopcion") or 2156)
+    months = sorted({ticket["Mes"] for ticket in tickets})
+    monthly = []
+    prev_on_time = None
+    for month in months:
+        rows = [ticket for ticket in tickets if ticket["Mes"] == month]
+        closed = [ticket for ticket in rows if ticket["Cerrado"]]
+        inside = [ticket for ticket in closed if ticket["DentroSLA"]]
+        outside = [ticket for ticket in closed if ticket["FueraSLA"]]
+        pend_inside = [ticket for ticket in rows if ticket["Pendiente"] and not ticket["PendienteVencido"]]
+        pend_late = [ticket for ticket in rows if ticket["PendienteVencido"]]
+        adopters = {local_client_id(ticket["ClienteId"]) for ticket in rows if local_client_id(ticket["ClienteId"])}
+        on_time = len(inside) / len(closed) if closed else 0
+        monthly.append(
+            {
+                "Mes": month,
+                "Total": len(rows),
+                "CerradosDentroSLA": len(inside),
+                "CerradosFueraSLA": len(outside),
+                "PendDentroSLA": len(pend_inside),
+                "PendVencidos": len(pend_late),
+                "OnTime": on_time,
+                "ClientesContactoCXC": len(adopters),
+                "DenominadorAdopcion": denominator,
+                "AdopcionPct": len(adopters) / denominator if denominator else 0,
+                "Variacion": None if prev_on_time is None else on_time - prev_on_time,
+            }
+        )
+        prev_on_time = on_time
+
+    closed_all = [ticket for ticket in tickets if ticket["Cerrado"]]
+    inside_all = [ticket for ticket in closed_all if ticket["DentroSLA"]]
+    outside_all = [ticket for ticket in closed_all if ticket["FueraSLA"]]
+    pend_inside_all = [ticket for ticket in tickets if ticket["Pendiente"] and not ticket["PendienteVencido"]]
+    pend_late_all = [ticket for ticket in tickets if ticket["PendienteVencido"]]
+    risk = [ticket for ticket in tickets if ticket["RiesgoMasivo"]]
+    avg_on = sum(row["OnTime"] for row in monthly) / len(monthly) if monthly else 0
+    avg_adoption = sum(row["AdopcionPct"] for row in monthly) / len(monthly) if monthly else 0
+
+    base.update(
+        {
+            "generado": date.today().isoformat(),
+            "periodo": f"{months[0]} a {months[-1]}" if months else "",
+            "tickets": tickets,
+            "monthly": monthly,
+            "topMotivos": count_records(tickets, "Motivo"),
+            "topSubmotivos": count_records(tickets, "Submotivo"),
+            "alcance": count_records(tickets, "Alcance", 10),
+            "riesgoTickets": risk,
+        }
+    )
+    base["kpis"] = {
+        **base.get("kpis", {}),
+        "totalTickets": len(tickets),
+        "onTimeAcumulado": round((len(inside_all) / len(closed_all) * 100) if closed_all else 0, 1),
+        "promedioOnTimeMensual": round(avg_on * 100, 1),
+        "dentroSLA": len(inside_all),
+        "fueraSLA": len(outside_all),
+        "pendientesDentroSLA": len(pend_inside_all),
+        "pendientesVencidos": len(pend_late_all),
+        "riesgoMasivo": len(risk),
+        "clientesConTickets": len({local_client_id(ticket["ClienteId"]) for ticket in tickets}),
+        "denominadorAdopcion": denominator,
+        "adopcionPromedioMensual": round(avg_adoption * 100, 2),
+    }
+    return base
+
+
 def load_remote_data(source_url: str) -> dict:
     url = normalize_drive_url(source_url)
     if "?" in url:
@@ -219,8 +423,14 @@ def load_remote_data(source_url: str) -> dict:
         },
     )
     with urllib.request.urlopen(request, timeout=25) as response:
-        payload = response.read().decode("utf-8-sig")
-    return json.loads(payload)
+        payload = response.read()
+        content_type = response.headers.get("Content-Type", "")
+    try:
+        return json.loads(payload.decode("utf-8-sig"))
+    except Exception:
+        if payload[:2] == b"PK" or "spreadsheet" in content_type or "excel" in content_type:
+            return build_dashboard_data_from_excel(payload, load_local_data(DATA_PATH.stat().st_mtime))
+        raise ValueError("El link no devuelve un JSON ni un Excel valido. Revisa que sea el link del archivo y que este compartido como lector.")
 
 
 @st.cache_data(show_spinner=False, ttl=60)
@@ -230,16 +440,20 @@ def load_local_data(file_mtime: float) -> dict:
 
 
 def save_uploaded_dashboard_data(payload: bytes) -> dict:
-    parsed = json.loads(payload.decode("utf-8-sig"))
+    try:
+        parsed = json.loads(payload.decode("utf-8-sig"))
+    except Exception:
+        parsed = build_dashboard_data_from_excel(payload, load_local_data(DATA_PATH.stat().st_mtime))
     if not isinstance(parsed, dict) or "tickets" not in parsed or "kpis" not in parsed:
-        raise ValueError("El archivo no parece ser un dashboard-data.json valido.")
+        raise ValueError("El archivo no parece ser un dashboard-data.json ni un Excel CXC POWER valido.")
     DATA_PATH.write_text(json.dumps(parsed, ensure_ascii=False, indent=2), encoding="utf-8")
     return parsed
 
 
 def load_data() -> tuple[dict, str]:
+    prefer_remote = secret_or_env("USE_DATA_URL").lower() in {"1", "true", "si", "sí", "yes"}
     source_url = secret_or_env("DATA_URL")
-    if source_url:
+    if prefer_remote and source_url:
         try:
             return load_remote_data(source_url), "Google Drive"
         except Exception as exc:
@@ -352,12 +566,12 @@ def filter_tickets(tickets: pd.DataFrame, source_label: str) -> pd.DataFrame:
         if st.button("Actualizar / limpiar cache", use_container_width=True):
             st.cache_data.clear()
             st.rerun()
-        uploaded_dashboard = st.file_uploader("Cargar dashboard-data.json", type=["json"], key="upload_dashboard_data")
+        uploaded_dashboard = st.file_uploader("Cargar dashboard-data.json o CXC POWER.xlsx", type=["json", "xlsx"], key="upload_dashboard_data")
         if uploaded_dashboard is not None:
             try:
                 parsed = save_uploaded_dashboard_data(uploaded_dashboard.getvalue())
                 st.cache_data.clear()
-                st.success(f"JSON cargado: {len(parsed.get('tickets', []))} tickets.")
+                st.success(f"Datos cargados: {len(parsed.get('tickets', []))} tickets.")
                 st.rerun()
             except Exception as exc:
                 st.error(f"No pude cargar el JSON: {exc}")
